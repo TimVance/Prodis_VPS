@@ -92,7 +92,7 @@ class Order_admin_group_send extends Diafan
             if (!file_exists($dir))
                 mkdir($dir, 0777, true);
 
-            $doc->saveAs($dir . '/doc_tmp.docx');
+            $doc->saveAs($dir . '/doc_tmp2.docx');
             /*
             require_once $_SERVER["DOCUMENT_ROOT"].'/custom/custom28_10_2019_18_12/plugins/MSWord2Image/MsWordToImageConvert.php';
             $apiUser = '6364081511';
@@ -102,14 +102,14 @@ class Order_admin_group_send extends Diafan
             $convert->toFile($dir.'/demo4.jpeg');
             */
 
-            $converter = new NcJoes\OfficeConverter\OfficeConverter($dir.'/doc_tmp.docx');
-            $converter->convertTo($dir.'/doc_tmp.pdf');
+            $converter = new NcJoes\OfficeConverter\OfficeConverter($dir.'/doc_tmp2.docx');
+            $converter->convertTo($dir.'/doc_tmp2.pdf');
 
             $from_mail = EMAIL_CONFIG;
             $mail = new PHPMailer\PHPMailer\PHPMailer();
             $mail->setFrom($from_mail);
             $mail->addAddress($from_mail);
-            $mail->addStringAttachment(file_get_contents('https://'.$_SERVER['HTTP_HOST'].'/tmp/orders/order.jpeg'), 'order.jpeg');
+            $mail->AddAttachment($dir.'/doc_tmp2.pdf', 'order.pdf', $encoding = 'base64', $type = 'application/pdf');
             $mail->isHTML(true);
             $mail->Subject = 'OOO Продис';
             $mail->Body    = 'Для Вас сформирован документ';

@@ -1,0 +1,73 @@
+
+	html { height:100%; margin: 0; padding: 0;}
+
+    article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary, address {display: block;}    
+	audio, canvas {display: inline-block;}
+	video {display: block;}
+	audio:not([controls]) {display: none; height: 0;}
+    
+	address {font-style: normal;}
+    
+    ul, ol, li, form, fieldset, a, img, div, figure, address { margin: 0; padding: 0; border: 0; }
+    
+    ul {list-style: inside;}
+    ol {list-style: inside;}
+	
+    ul li {list-style: none;}
+    ol li {list-style: decimal inside;}
+    
+    ol {padding: 10px 0;}
+    ol li {margin: 0 0 20px 0;}
+	
+    body {height:100%; position: relative;}
+	body, td, input, textarea, button {margin: 0px; padding: 0px;}
+    body * {box-sizing: border-box;}
+    
+    a {text-decoration: none; color: inherit; transition: 0.3s;}
+    a:hover {text-decoration: none !important;}
+    
+	a, a:active, a:focus {outline: none;}
+	
+	b,
+	strong {font-weight: bold;}
+	
+	
+	table {border-collapse: collapse; border-spacing: 0;}
+	
+	.main {position: relative;}
+	.cbc {overflow: hidden; margin: 0 auto; position: relative;}
+
+
+	input::-webkit-input-placeholder {opacity: 1; color: $black;}
+	input::-moz-placeholder {opacity: 1; color: $black;}
+	input:-ms-input-placeholder {opacity: 1; color: $black;}	
+
+	textarea::-webkit-input-placeholder {opacity: 1; color: $black;}
+	textarea::-moz-placeholder {opacity: 1; color: $black;}
+	textarea:-ms-input-placeholder {opacity: 1; color: $black;}
+
+	input[type="submit"] {cursor: pointer;}
+
+	textarea,
+	button,
+	input[type="text"],
+	input[type="submit"],
+	input[type="password"] {-webkit-appearance: none; outline: none;}
+
+
+	textarea,
+	input[type="text"],
+	input[type="button"],
+	input[type="submit"],
+	input[type="email"],
+	input[type="tel"],
+	input[type="password"],
+	select {
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		border-radius: 0;
+		-moz-border-radius: 0;
+		-webkit-border-radius: 0;
+	}
+
+	body, td, input, textarea, button {color: $defaultColor; font-family: $defaultFont, Arial; font-size: 16px;}

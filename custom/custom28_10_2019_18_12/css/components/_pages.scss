@@ -1,0 +1,130 @@
+/* pages */
+
+.left-side {
+    @media (max-width: 992px) {
+        width: 100%;
+        min-height: 0;
+        padding: 20px;
+    }
+
+    &__logo {
+        font-size: 22px;
+        font-weight: bold;
+        color: $blue;
+
+        @media (max-width: 992px) {
+            margin-bottom: 0;
+        }
+    }
+
+    &__menu {
+        @media (max-width: 992px) {
+            display: none;
+        }
+    }
+}
+
+.right-side {
+    @media (max-width: 992px) {
+        width: 100%;
+        padding: 20px;
+    }
+}
+
+.news {
+    max-width: 1000px;
+    width: 100%;
+
+    &__content {
+        margin-bottom: 10px;
+    }
+
+    &__cover {
+        margin-bottom: 30px;
+
+        img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin: auto;
+        }
+    }
+
+    &__info {
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+        font-size: 13px;
+    }
+
+    &__counter {
+        color: $gray;
+    }
+
+    &__date {
+        color: $gray;
+    }
+}
+
+.news-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.news-card {
+
+    &__cover {
+        margin-bottom: 20px;
+        display: block;
+
+        img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+    }
+
+    &__text {
+
+    }
+
+    &__title {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 30px;
+
+        a {
+            display: inline-block;
+            color: $black;
+
+            &:hover {
+                color: $blue;
+            }
+        }
+    }
+
+    &__anons {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    &__date {
+        font-size: 13px;
+        color: $gray;
+    }
+
+    &__more {
+        font-size: 13px;
+        color: $blue;
+
+        &:hover {
+            color: $black;
+        }
+    }
+
+    &__bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+    }
+}

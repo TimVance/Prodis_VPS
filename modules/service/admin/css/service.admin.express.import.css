@@ -1,0 +1,166 @@
+h3 {
+	margin: 0 0 14px;
+	padding: 17px 0 11px;
+	font: bold 15px/15px ptsans;
+	letter-spacing: 0.3px;
+}
+
+.spinner_upload_file {
+	vertical-align: middle;
+	padding-left: 8px;
+}
+.progressbar {
+	width: 140px;
+	height: 14px;
+	display: inline-block;
+	vertical-align: middle;
+	border: 1px solid #ebe8e8;
+	margin-left: 8px;
+}
+.progressbar > .line {
+	height: 100%;
+	width: 0%;
+	background: #1b9ada;
+}
+.div_file_link input {
+    margin: 0 5px 8px 0;
+}
+.file_upload {
+	margin: 14px 0 10px;
+}
+
+#csv_param,
+#fields_cat_param {
+    margin: 0;
+		border-top: 1px solid #d6d0d0;
+    border-bottom: 1px solid #d6d0d0;
+    padding: 11px 10px;
+		/*background: #f5f3f3;*/
+		background: rgba(245, 243, 243, .6);
+}
+
+.informer,
+#express_form_request {
+	margin: 16px 0;
+}
+
+#extensions {
+	position: relative;
+	margin-bottom: 15px;
+}
+#extensions .extensions_text {
+	overflow: hidden;
+	max-height: 55px;
+	position: absolute;
+	margin: -30px 0 0 100px;
+	padding: 5px;
+	background: #FFF;
+}
+
+
+.box.box_table {
+	/*padding: 0px;*/
+}
+
+.box .fields_express {
+	width: 100%;
+	table-layout: fixed;
+}
+.box .fields_express COL.col1, .box .fields_express COL.coln {
+	width: 100%;
+}
+.box .fields_express TD, .box .fields_express TH {
+	/*width: 100%;*/
+	overflow: auto;
+	padding: 3px;
+	vertical-align: middle;
+}
+
+.box .fields_express TH {
+	padding: 10px 3px 8px 3px;
+	font: 12px/17px ptsans;
+	color: #889397;
+	letter-spacing: 0.2px;
+	vertical-align: middle;
+	background: #f5f3f3;
+}
+
+.box .fields_express TD {
+	border-top: 1px solid #ebe8e8;
+	border-left: 1px solid #ebe8e8;
+}
+.box .fields_express TD:first-of-type {
+	/*border-top: 1px solid transparent;*/
+	border-left: 1px solid transparent;
+}
+.box .fields_express TR:nth-of-type(2) TD:first-of-type {
+	/*border-top: 1px solid #ebe8e8;*/
+}
+
+.box .fields_express TD.col1 {
+	text-align: center;
+}
+.box .fields_express TD.coln {
+	font: 12px/17px ptsans;
+	letter-spacing: 0.2px;
+}
+
+.box .fields_express TR.row TD select {
+	/*border: 1px solid #ebe8e8;*/
+	border: 1px solid transparent;
+
+	font: 12px/17px ptsans;
+	letter-spacing: 0.2px;
+}
+
+.box .fields_express TR.row:hover,
+.box .fields_express TR.row:hover TD select {
+	background: #f6f9fa;
+}
+
+
+.box .fields_express select[name=type] {
+	cursor: pointer;
+}
+.box .fields_express .block_hover,
+.box .fields_express .block_hover TD select {
+	background: #f6f9fa;
+}
+
+
+.box .fields_express TR.row TD.col1 > .unit {
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+	display: inline-block;
+	width: calc(100% - 16px);
+	vertical-align: middle;
+}
+.box .fields_express TR.row TD.col1 > .unit .infofield {
+	display: none;
+}
+.box .fields_express TR.row TD.col1 .fa.fa-gear {
+	vertical-align: middle;
+	margin: 3px 0 0 0px;
+}
+.box .fields_express TR.row TD.col1 > .unit select {
+	padding: 5px 0px 5px 0px;
+}
+.box .fields_express TR.row TD.col1 > .row_name {
+	display: block;
+	font: 12px/17px ptsans;
+	letter-spacing: 0.2px;
+	text-align: left;
+	padding: 0px 5px;
+	color: #889397;
+	cursor: default;
+}
+.box .fields_express TR.field TD {
+	zoom: 0.9;
+	background: #f5f3f3;
+	padding: 0px 10px 15px 10px;
+}
+.box .fields_express TR.row TD.cell_disable {
+	background: #f5f3f3;
+	color: #889397;
+	opacity: 0.6;
+}

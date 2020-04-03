@@ -1,0 +1,27 @@
+/* скрываем чекбоксы и блоки с содержанием */
+.helper .checkbox {
+	display: none; 
+}
+.helper .checkbox + label ~ div{
+	display: none;
+}
+/* оформляем текст label */
+.helper .checkbox + label {
+	padding: 2px 17px 1px;
+}
+/* вид текста label при активном переключателе */
+.helper .checkbox:checked + label {
+	background: #889397;
+	background-image: none;
+}
+.helper .checkbox:checked + label:hover {
+	background: #2e2e2e;
+}
+/* когда чекбокс активен показываем блоки с содержанием  */
+.helper .checkbox:checked + label + div {
+	display: block;
+	padding: 10px;
+	color: #2e2e2e;
+    background: #f5f3f3;
+	margin-top: 5px;
+}

@@ -1,0 +1,236 @@
+/* |===============| Статистика посещений start |===============| */
+.go_traffic_content {
+	width: 100%;
+	min-width: 350px;
+	margin: 0px;
+	padding: 0px;
+	position: relative;
+	display: inline-block;
+	vertical-align: text-top;
+	position: relative;
+}
+
+.go_traffic_container {
+	vertical-align: inherit;
+	box-sizing: border-box;
+	width: 100%;
+	height: 375px;
+	padding: 20px 10px 15px 10px;
+	margin: 0px;
+	background: #fff;
+	position: relative;
+}
+
+.go_traffic_placeholder {
+	width: 100%;
+	height: 100%;
+	font-size: 14px;
+	line-height: 1.2em;
+	float:left;
+}
+
+.go_traffic_legend {
+	position: absolute;
+	top: 38px;
+	left: 65px;
+}
+.go_traffic_legend table {
+	border-spacing: 5px;
+}
+.go_traffic_legend td {
+	height: 22px;
+}
+.go_traffic_legend .legendLabel {
+	padding: 0px 0px 0px 5px;
+}
+.go_traffic_option {
+		background: #fff;
+		padding: 0px 0px 10px 20px;
+		height: 75px;
+}
+#go_traffic_choices label {
+	padding: 0px 0px 0px 5px;
+	margin: 0px 10px 0px 0px;
+}
+.go_traffic_choices,
+.go_traffic_setting {
+	display: inline-block;
+	vertical-align: text-top;
+}
+.go_traffic_option input {
+	padding: 0px !important;
+	border: inherit !important;
+	width: inherit !important;
+}
+.go_traffic_option label {
+	padding: 0px 0px 0px 5px;
+	font-size: smaller;
+}
+/* |===============| Статистика посещений end |===============| */
+
+/* |===============| Статистика по источникам трафика start |===============| */
+.go_traffic_source_content {
+	width: 100%;
+	min-width: 350px;
+	margin: 0px;
+	padding: 0px;
+	position: relative;
+	display: inline-block;
+	vertical-align: text-top;
+	position: relative;
+}
+
+.go_traffic_source_container {
+	box-sizing: border-box;
+	width: 100%;
+	height: 450px;
+	padding: 20px 10px 15px 10px;
+	background: #fff;
+	position: relative;
+}
+
+.go_traffic_source_placeholder {
+	width: 100%;
+	height: 100%;
+	font-size: 14px;
+	line-height: 1.2em;
+}
+
+.go_traffic_source_placeholder .legend table {
+	border-spacing: 5px;
+}
+.go_traffic_source_placeholder .label_formatter {
+	font-size: 10pt;
+	text-align: center;
+	padding: 2px;
+	color: white;
+}
+/* |===============| Статистика по источникам трафика end |===============| */
+
+/* |===============| Статистика по отказам start |===============| */
+.go_bounce_rate_content {
+	width: 100%;
+	min-width: 350px;
+	margin: 0px;
+	padding: 0px;
+	position: relative;
+	display: inline-block;
+	vertical-align: text-top;
+	position: relative;
+}
+
+.go_bounce_rate_container {
+	box-sizing: border-box;
+	width: 100%;
+	height: 450px;
+	padding: 20px 10px 15px 10px;
+	background: #fff;
+	position: relative;
+}
+
+.go_bounce_rate_placeholder {
+	width: 100%;
+	height: 100%;
+	font-size: 14px;
+	line-height: 1.2em;
+}
+
+
+.go_bounce_rate_container {
+	height: 225px;
+	padding-left: 100px;
+}
+.go_bounce_rate_value {
+	position: absolute;
+	left: 25px;
+	top: 30px;
+	font-size: larger;
+}
+.go_bounce_rate_end {
+	font-weight: bold;
+}
+.go_bounce_rate_end,
+.go_bounce_rate_prev {
+	display: block;
+}
+.go_bounce_rate_prev {
+	color: red;
+	font-size: smaller;
+}
+.go_bounce_rate_prev.plus {
+	color: green;
+}
+/* |===============| Статистика по отказам end |===============| */
+
+/* |===============| Статистика по времени на сайте start |===============| */
+.go_duration_content {
+	width: 100%;
+	min-width: 350px;
+	margin: 0px;
+	padding: 0px;
+	position: relative;
+	display: inline-block;
+	vertical-align: text-top;
+	position: relative;
+}
+
+.go_duration_container {
+	box-sizing: border-box;
+	width: 100%;
+	height: 450px;
+	padding: 20px 10px 15px 10px;
+	background: #fff;
+	position: relative;
+}
+
+.go_duration_placeholder {
+	width: 100%;
+	height: 100%;
+	font-size: 14px;
+	line-height: 1.2em;
+}
+
+
+.go_duration_container {
+	height: 225px;
+	padding-left: 100px;
+}
+.go_duration_value {
+	position: absolute;
+	left: 25px;
+	top: 30px;
+	font-size: larger;
+}
+.go_duration_end {
+	font-weight: bold;
+}
+.go_duration_end,
+.go_duration_prev {
+	display: block;
+}
+.go_duration_prev {
+	color: red;
+	font-size: smaller;
+}
+.go_duration_prev.plus {
+	color: green;
+}
+/* |===============| Статистика по времени на сайте end |===============| */
+
+
+/* |===============| @media start |===============| */
+.go_traffic_content,
+.go_traffic_source_content,
+.go_bounce_rate_content,
+.go_duration_content {
+	max-width: calc(49% - 10px);
+}
+@media (max-width: 820px) {
+	.go_traffic_content,
+	.go_traffic_source_content,
+	.go_bounce_rate_content,
+	.go_duration_content {
+		max-width: 100%;
+	}
+}
+/* |===============| @media end |===============| */

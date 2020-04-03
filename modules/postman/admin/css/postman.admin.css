@@ -1,0 +1,40 @@
+.red_text, .orange_text, .brown_text, .green_text{
+	font-weight: bold;
+}
+.red_text{
+	color:#D54640;
+}
+.orange_text{
+	color:#F49D10;
+}
+.brown_text{
+	color:#A6AEB0;
+}
+.green_text{
+	color:#8AC73C;
+}
+.item .send,
+.item .send:hover{
+	/*color: #39b54a;*/
+	color: #1085bf;
+}
+.item .send:hover{
+	opacity: 0.7;
+}
+
+.item .name.postman {
+	min-width: 65px;
+}
+
+.text[name="status"],
+.text[name="error"] {
+	padding: 6px 9px 5px;
+	border: 1px solid #a8afb2;
+	max-width: 100%;
+	width: 428px;
+	color: #2e2e2e;
+}
+.text[name="status"][disabled],
+.text[name="error"][disabled] {
+	background-color: rgb(235, 235, 228);
+}

@@ -1,0 +1,66 @@
+.content > .error {
+	margin: 1em 0;
+}
+.list_addonss .item_disable {
+	opacity: 1;
+}
+.addon_update, .item .item__ui.addon_update {
+	text-align: center;
+	display: inline-block;
+	vertical-align: middle;
+	margin: 0 1px;
+	width: 20px;
+	height: 20px;
+	background: transparent;
+	color: #1b9ada;
+	font: 13px/24px ptsans;
+	-webkit-border-radius: 50px;
+	-moz-border-radius: 50px;
+	border-radius: 50px;
+}
+.item .addon_update:hover {
+	opacity: 0.9;
+}
+.item .item__ui.addon_update {
+	background: transparent;
+	color: #1b9ada;
+	margin: -6px 2px 0 -2px;
+}
+.addon_update.disable, .item .addon_update.disable,
+label .addon_update.disable, .item .item__labels a.addon_update.disable, .item .item__labels a:hover.addon_update.disable {
+	background: #bbc3c6;
+	color: #FFF;
+}
+label .addon_update, .item .addon_update,
+.item .item__labels a.addon_update {
+	color: #FFF;
+	background: #1b9ada;
+	margin: -6px 2px 0 -2px;
+}
+.item .item__labels a:hover.addon_update {
+	color: #FFF;
+	background: #1085bf;
+	margin: -6px 2px 0 -2px;
+	opacity: 1;
+}
+
+.btn_buy,
+.btn_subscription,
+.item a.btn_buy,
+.item a.btn_subscription {
+	color: #fff;
+}
+.item__in > .action a,
+.item__in > .action span.subscription {
+	margin: 5px 0 0 5px;
+}
+.item span.subscription {
+	display: inline-block;
+	padding: 0px;
+	font-size: 13px;
+	white-space: nowrap;
+}
+
+#check_update {
+	margin: 15px 0;
+}

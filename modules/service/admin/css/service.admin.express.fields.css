@@ -1,0 +1,7 @@
+.item .param,
+.item .param:hover{
+	color: gray;
+}
+.item .param:hover{
+	opacity: 0.7;
+}

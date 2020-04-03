@@ -1,0 +1,117 @@
+.reglament {
+    &__title {
+        display: block;
+        font-weight: bold;
+        font-size: 16px;
+        margin-bottom: 5px;
+    }
+
+    &__field {
+        margin-bottom: 15px;
+        border-bottom: 1px solid rgb(242, 244, 248);
+        padding-bottom: 15px;
+
+        &:last-child {
+            border: none;
+        }
+
+        label {
+            outline: none;
+            margin-right: 5px;
+
+            span {
+                display: inline-block;
+                width: 14px;
+                height: 14px;
+                border: 1px solid #dde2ec;
+                border-radius: 4px;
+                position: relative;
+                vertical-align: -1px;
+                margin-right: 3px;
+                transition: all .3s;
+            }
+
+            input:checked + span {
+                border: 1px solid #0073ff;
+
+                &:before {
+                    content: "";
+                    border-top: 3px solid #5d5b5b;
+                    border-right: 3px solid #5d5b5b;
+                    background-color: transparent;
+                    width: 13px;
+                    height: 4px;
+                    position: absolute;
+                    transform: rotate(130deg);
+                }
+            }
+
+            input {
+                display: none;
+            }
+
+        }
+
+    }
+
+    &__fast-action {
+        text-decoration: underline;
+        display: inline-block;
+        margin-right: 10px;
+        color: rgba(0, 115, 255, 0.5);
+        cursor: pointer;
+
+        &:hover {
+            color: rgba(0, 115, 255, 1);
+        }
+
+    }
+
+    input[type="number"] {
+        width: 60px;
+        padding: 5px 10px;
+        outline: none;
+        border: 2px solid #dde2ec;
+        border-radius: 5px;
+        font-size: 16px;
+        transition: all .3s;
+
+        &:focus {
+            border-color: #047bf8;
+        }
+
+    }
+
+    .repeat {
+        & > div:last-child {
+            margin-top: 8px;
+        }
+    }
+
+    .date {
+        input {
+            padding: 5px 10px;
+            outline: none;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: all .3s;
+
+            &:focus {
+                border-color: #047bf8;
+            }
+
+        }
+
+        input[type="date"] {
+            border: 2px solid #dde2ec;
+            border-right: none;
+            margin-left: 5px;
+        }
+
+        input[type="time"] {
+            border: 2px solid #dde2ec;
+            border-left: none;
+            margin-right: 10px;
+        }
+    }
+}

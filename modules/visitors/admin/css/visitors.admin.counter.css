@@ -1,0 +1,20 @@
+#history textarea[name="history"] {
+	white-space: pre;
+	width: 100%;
+}
+ 
+.row_user {
+	background: #ccffff;
+}
+ 
+.row_guest {
+
+}
+ 
+.row_search_bot {
+	background: #ffffcc;
+}
+ 
+.row_bot {
+	background: #fafafa;
+}

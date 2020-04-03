@@ -1,0 +1,59 @@
+// Форма регистрации
+
+.auth-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding-bottom: 80px;
+    background: linear-gradient(to bottom right, #D7BBEA, #65A8F1);
+    overflow: hidden;
+}  
+
+.auth-bg-decor {
+    max-width: 1700px;
+    width: 100%;
+    background: url(../img/bg-pattern2.png) center repeat;
+}
+
+.auth-box {
+    max-width: 500px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 70px 50px;
+    
+    &__logo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 190px;
+    }
+
+    &__title {
+        margin-bottom: 50px;
+        position: relative;
+        padding-bottom: 20px;
+
+        &::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -70px;
+            right: -70px;
+            height: 1px;
+            background: #e6e6e6;
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0px;
+            background-color: $blue;
+            width: 32px;
+            height: 7px;
+            border-radius: 0px;
+            display: block;
+        }
+    }
+}

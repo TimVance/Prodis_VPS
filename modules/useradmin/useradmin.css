@@ -1,0 +1,374 @@
+/**
+ * Панель быстрого редактирования, CSS
+ *
+ * @package    DIAFAN.CMS
+ * @author     diafan.ru
+ * @version    6.0
+ * @license    http://www.diafan.ru/license.html
+ * @copyright  Copyright (c) 2003-2018 OOO «Диафан» (http://www.diafan.ru/)
+ */
+
+@import url(../../adm/css/fontawesome.css);
+
+@font-face {
+    font-family: ptsans;
+    src: url('../../adm/fonts/ptsans/ptsans.eot');
+    src: url('../../adm/fonts/ptsans/ptsans.eot?#iefix') format('embedded-opentype'),
+         url('../../adm/fonts/ptsans/ptsans.woff') format('woff'),
+         url('../../adm/fonts/ptsans/ptsans.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: ptsans;
+    src: url('../../adm/fonts/ptsans/ptsans_bold.eot');
+    src: url('../../adm/fonts/ptsans/ptsans_bold.eot?#iefix') format('embedded-opentype'),
+         url('../../adm/fonts/ptsans/ptsans_bold.woff') format('woff'),
+         url('../../adm/fonts/ptsans/ptsans_bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'clear';
+    src: url('../../adm/fonts/clear/clearsans-regular.eot');
+    src: url('../../adm/fonts/clear/clearsans-regular.eot?#iefix') format('embedded-opentype'),
+         url('../../adm/fonts/clear/clearsans-regular.woff2') format('woff2'),
+         url('../../adm/fonts/clear/clearsans-regular.woff') format('woff'),
+         url('../../adm/fonts/clear/clearsans-regular.ttf') format('truetype'),
+         url('../../adm/fonts/clear/clearsans-regular.svg#clear_sansregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'clear';
+    src: url('../../adm/fonts/clear/clearsans-bold.eot');
+    src: url('../../adm/fonts/clear/clearsans-bold.eot?#iefix') format('embedded-opentype'),
+         url('../../adm/fonts/clear/clearsans-bold.woff2') format('woff2'),
+         url('../../adm/fonts/clear/clearsans-bold.woff') format('woff'),
+         url('../../adm/fonts/clear/clearsans-bold.ttf') format('truetype'),
+         url('../../adm/fonts/clear/clearsans-bold.svg#clear_sansbold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'clear';
+    src: url('../../adm/fonts/clear/clearsans-italic.eot');
+    src: url('../../adm/fonts/clear/clearsans-italic.eot?#iefix') format('embedded-opentype'),
+         url('../../adm/fonts/clear/clearsans-italic.woff2') format('woff2'),
+         url('../../adm/fonts/clear/clearsans-italic.woff') format('woff'),
+         url('../../adm/fonts/clear/clearsans-italic.ttf') format('truetype'),
+         url('../../adm/fonts/clear/clearsans-italic.svg#clear_sansitalic') format('svg');
+    font-weight: normal;
+    font-style: italic;
+}
+
+.useradmin_active, .useradmin_active p, .useradmin_active div, .useradmin_active span, .useradmin_active a:link, .useradmin_active a:visited,  .useradmin_active h1, .useradmin_active h2,  .useradmin_active h3,  .useradmin_active h4
+{
+	cursor:url(../../adm/img/useradmin_edit.gif), default;
+	color: red;
+}
+
+.useradmin_panel a{
+	color: #1b9ada;
+	text-decoration: none;
+}
+.useradmin_panel .btn,
+.useradmin_panel a,
+.useradmin_panel input,
+.useradmin_panel button,
+.useradmin_panel textarea,
+.useradmin_panel .diafan-admin-link span,
+.useradmin_panel .diafan-admin-link .fa{
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	-ms-transition: all 0.3s;
+	-o-transition: all 0.3s;
+	transition: all 0.3s;
+}
+/* |===============| diafan-admin-panel start |===============| */
+.diafan-admin-panel{
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 999;
+	padding: 0 24px;
+	width: 100%;
+	background: #2e2e2e;
+	color: #fff;
+	font: 14px/17px clear;
+	height: 52px;
+}
+.diafan-admin-panel_bottom{
+	top: auto;
+	bottom: 0;
+}
+.diafan-admin-panel:after{
+	content: "";
+	display: block;
+	clear: both;
+}
+.diafan-admin-panel a{
+	color: #fff;
+}
+.diafan-admin-panel .diafan-admin-logo{
+	float: left;
+	line-height: 15px;
+	letter-spacing: 0.2px;
+	padding: 13px 4px 8px 0;
+	width: 206px;
+	border-right: 1px solid #585858;
+	font: 12px/15px ptsans;
+	color: #bebebe;
+}
+.diafan-admin-logo__link{
+	display: block;
+	overflow: hidden;
+	white-space: nowrap;
+	-ms-text-overflow: ellipsis;
+	text-overflow: ellipsis;
+}
+.diafan-admin-logo:hover .diafan-admin-logo__link{
+	text-decoration: underline;
+}
+.diafan-admin-logo img{
+	float: left;
+	margin: 0 8px 0 0;
+	width: 26px;
+	height: 26px;
+}
+.diafan-admin-logo__title{
+	display: block;
+	margin: 0 0 2px;
+	font: bold 14px/13px ptsans;
+	color: #fff;
+}
+.diafan-admin-link{
+	position: relative;
+	float: left;
+	text-align: center;
+	border-right: 1px solid #585858;
+	white-space: nowrap;
+}
+.diafan-admin-link > a{
+	display: block;
+	padding: 18px 16px 16px;
+}
+.diafan-admin-link:hover > a{
+	background: #222;
+}
+.diafan-admin-link > a .fa{
+	margin-right: 3px;
+}
+.diafan-admin-unit{
+	overflow: hidden;
+	padding: 18px 0px 12px 4px;
+}
+.diafan-admin-user{
+	position: relative;
+	float: right;
+	padding-left: 18px;
+	width: 184px;
+	white-space: nowrap;
+	text-transform: capitalize;
+}
+.diafan-admin-user:hover{
+	text-decoration: underline;
+}
+.diafan-admin-user .fa{
+	position: absolute;
+	left: 0;
+	top: 2px;
+	margin-right: 3px;
+}
+.diafan-admin-user__in{
+	display: block;
+	overflow: hidden;
+	-ms-text-overflow: ellipsis;
+	text-overflow: ellipsis;
+}
+.diafan-admin-sign-out,
+.diafan-admin-settings{
+	float: right;
+	margin: 0 0 0 12px;
+}
+.diafan-admin-sign-out:hover,
+.diafan-admin-settings:hover{
+	opacity: 0.7;
+}
+.diafan-admin-link_disable a{
+	color: #fff;
+}
+.diafan-admin-toggle{
+	float: right;
+	cursor: pointer;
+	margin: 0 0 0 16px;
+	padding: 0 4px;
+}
+.diafan-admin-panel_bottom .diafan-admin-toggle .fa:before{
+	_content: "\f0d8";
+}
+.diafan-admin-toggle-blink{
+	-webkit-animation: blinkcolor 3s ease-in-out infinite;
+	-moz-animation: blinkcolor 3s ease-in-out infinite;
+	-o-animation: blinkcolor 3s ease-in-out infinite;
+	animation: blinkcolor 3s ease-in-out infinite;
+}
+@keyframes blinkcolor {
+	0% { background-color: #2e2e2e; }
+	50% { background-color: #ffffff; }
+	100%{ background-color: #2e2e2e; }
+}
+@-webkit-keyframes blinkcolor {
+	0% { background-color: #2e2e2e; }
+	50%{ background-color:  #ffffff; }
+	100%{ background-color: #2e2e2e; }
+}
+@-moz-keyframes blinkcolor {
+	0% { background-color: #2e2e2e; }
+	50%{ background-color:  #ffffff; }
+	100%{ background-color: #2e2e2e; }
+}
+.diafan-admin-toggle-blink a{
+	color: #8dc63f;
+}
+.header__popup{
+	display: none;
+	z-index: 1;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	padding: 6px 0;
+	background: #434343;
+	text-align: left;
+}
+.diafan-admin-popup{
+	min-width: 230px;
+	display: none;
+	z-index: 1111;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	padding: 6px 0;
+	background: #434343;
+	text-align: left;
+}
+.diafan-admin-panel_bottom .diafan-admin-popup{
+	bottom: 100%;
+	top: initial;
+}
+.diafan-admin-popup a{
+	display: block;
+    padding: 12px 25px 11px;
+
+}
+.diafan-admin-popup a:hover{
+	background: #2e2e2e;
+}
+.diafan-admin-popup .fa{
+	width: 22px;
+}
+.diafan-admin-deact{
+  background-color: #ff4a0b;
+}
+.diafan-admin-link.diafan-admin-deact > a {
+    display: block;
+    padding: 18px 16px 17px;
+}
+.diafan-admin-link.diafan-admin-deact.double_line > a{
+    display: block;
+    padding: 9px 16px;
+}
+.diafan-admin-deact i{
+    display: none;
+    padding: 2px 0 1px;
+}
+.diafan-admin-deact.double_line i{
+    padding: 10px 0;
+}
+/* |===============| header end |===============| */
+
+/* |===============| @media start |===============| */
+@media (max-width: 1276px) {
+	.diafan-admin-user{
+		max-width: 106px;
+	}
+}
+@media (max-width: 1196px) {
+	.diafan-admin-link > a{
+		padding-left: 12px;
+		padding-right: 12px;
+	}
+
+	.diafan-admin-user{
+		padding-left: 0;
+		width: 20px;
+		height: 20px;
+	}
+	.diafan-admin-user .fa{
+		left: auto;
+		top: 1px;
+		right: 0;
+		margin-right: 0;
+	}
+	.diafan-admin-user__in{
+		display: none;
+	}
+}
+@media (max-width: 1096px) {
+  .diafan-admin-deact i{
+      display: block;
+  }
+  .diafan-admin-deact span{
+    display: none;
+  }
+	.diafan-admin-link_cab span{
+		display: none;
+	}
+}
+@media (max-width: 996px) {
+	.diafan-admin-link_add span{
+		display: none;
+	}
+}
+@media (max-width: 906px) {
+  .diafan-admin-link_edt span{
+		display: none;
+	}
+	.diafan-admin-panel{
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+	.diafan-admin-link > a{
+		padding-left: 15px;
+		padding-right: 15px;
+	}
+}
+@media (max-width: 720px) {
+	.diafan-admin-link span{
+		display: none;
+	}
+}
+@media (max-width: 566px) {
+	.diafan-admin-link span{
+		display: none;
+	}
+	.diafan-admin-panel .diafan-admin-logo{
+		width: 174px;
+	}
+	.diafan-admin-link > a{
+		padding-left: 9px;
+		padding-right: 9px;
+	}
+}
+@media (max-width: 466px) {
+	.diafan-admin-panel .diafan-admin-logo{
+		width: 40px;
+		height: 51px;
+	}
+	.diafan-admin-logo__title,
+	.diafan-admin-logo__link{
+		display: none;
+	}
+}
+/* |===============| @media end |===============| */

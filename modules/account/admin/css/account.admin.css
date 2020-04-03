@@ -1,0 +1,46 @@
+.btn_sign-in:before{
+	font-family: FontAwesome;
+	content: "\f023";
+	padding-right: 5px;
+}
+.btn_sign-out:before{
+	font-family: FontAwesome;
+	content: "\f08b";
+	padding-right: 5px;
+}
+
+.user_page .avatar {
+	width: 70px;
+	height: auto;
+	border-radius: 50%;
+}
+.user_page td {
+	vertical-align: middle;
+	padding: 10px;
+}
+
+
+.overdue-form .inputtext {
+	background: none;
+	border: 1px solid #ecf0f1 !important;
+	margin: 12px 0px;
+	margin-right: 10px;
+	padding: 8px 16px;
+	width: 80px !important;
+}
+.overdue-form .inputtext:focus{
+  border:1px solid #a8afb2 !important;
+}
+.overdue-periods {
+	margin: -14px 0 28px 0;
+	display: block;
+}
+.overdue-form .pay-period {
+	color: black;
+	border-bottom: dashed 1px;
+	margin-right: 20px;
+}
+.overdue-form .pay-period:hover{
+	border-bottom: transparent;
+	text-decoration: none;
+}

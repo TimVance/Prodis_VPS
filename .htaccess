@@ -1,0 +1,75 @@
+Options -Indexes
+
+Options +FollowSymLinks
+
+DirectoryIndex index.php index.html
+
+ErrorDocument 404 /404.php
+
+AddDefaultCharset utf-8
+
+# Необходимо для авторизации API, если недоступна функция apache_request_headers
+# При таком способе установки переменной окружения получим $_SERVER[‘HTTP_AUTHORIZATION’]
+# SetEnvIfNoCase Authorization "(.*)" HTTP_AUTHORIZATION=$1
+
+# Add other values from HTTP Headers. For example:
+# SetEnvIfNoCase Accept "(.*)" HTTP_ACCEPT=$1
+# SetEnvIfNoCase Content-Type "(.*)" HTTP_CONTENT_TYPE=$1
+# SetEnvIfNoCase ^If-Modified-Since$ "(.+)" HTTP_IF_MODIFIED_SINCE=$1
+# SetEnvIfNoCase ^If-None-Match$ "(.+)" HTTP_IF_NONE_MATCH=$1
+# SetEnvIfNoCase ^Cache-Control$ "(.+)" HTTP_CACHE_CONTROL=$1
+# SetEnvIfNoCase ^Connection$ "(.+)" HTTP_CONNECTION=$1
+# SetEnvIfNoCase ^Keep-Alive$ "(.+)" HTTP_KEEP_ALIVE=$1
+# SetEnvIfNoCase ^Cookie$ "(.+)" HTTP_COOKIE=$1
+
+<IfModule mod_rewrite.c>
+  RewriteEngine on
+
+# раскомментируйте строку ниже, если на Вашем хостинге установщик выдает ошибку 500 Internal Server Error
+# измените / на /sub/ при установке в подпапку http://site.ru/sub/
+# RewriteBase /
+
+# расcкомментируйте строки ниже, если хотите чтобы сайт был всегда с www,
+# т.е. постоянный редирект с http://site.ru/ на http://www.site.ru/
+# RewriteCond %{HTTP_HOST} !^www.
+# RewriteRule (.*) http://www.%{HTTP_HOST}/$1 [R=301,L]
+
+# и наоборот: раскомментируйте эти две строки, чтобы был редирект с www на без www
+# RewriteCond %{HTTP_HOST} ^www\.(.*) [NC]
+# RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+
+  RewriteCond %{HTTP:Authorization} !^$
+  RewriteCond %{REQUEST_URI} ^/shop/1c/.*
+  RewriteRule ^(.*)$ shop/1c/?auth=%{HTTP:Authorization}&%{QUERY_STRING}
+
+  RewriteRule ^(.*)sitemap.xml$ index.php?rewrite=sitemap.xml [QSA]
+  RewriteRule ^(&*)(.*)/$ index.php?rewrite=$2 [QSA]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^(&*)(.*)$ index.php?rewrite=$2 [QSA]
+  RewriteRule ^index.php\/(.*)$ index.php?rewrite=index.php/$1 [QSA]
+
+# Необходимо для авторизации API, если недоступна функция apache_request_headers
+# При таком способе установки переменной окружения вместо ожидаемой $_SERVER[‘HTTP_AUTHORIZATION’]
+# получим $_SERVER[‘REDIRECT_HTTP_AUTHORIZATION’]
+  RewriteCond %{HTTP:Authorization} !^$
+  RewriteCond %{REQUEST_URI} ^/api/.*
+  RewriteRule .* - [QSA,E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+# If-Modified-Since (if php is not installed as cgi then comment lines below)
+  RewriteRule .* - [E=HTTP_IF_MODIFIED_SINCE:%{HTTP:If-Modified-Since}]
+  RewriteRule .* - [E=HTTP_IF_NONE_MATCH:%{HTTP:If-None-Match}]
+</IfModule>
+
+<IfModule mod_headers.c>
+<FilesMatch "\.(flv|woff|woff2|eot|svg|otf|ttf|gif|jpg|jpeg|png|ico|swf|js|css|pdf|ico)$">
+  Header append Cache-Control "max-age=604800, must-revalidate"
+</FilesMatch>
+</IfModule>
+
+<IfModule mod_expires.c>
+<filesMatch "\.(flv|woff|woff2|eot|svg|otf|ttf|gif|jpg|jpeg|png|ico|swf|js|css|pdf|ico)$">
+  ExpiresActive On
+  ExpiresDefault "access plus 1 month"
+</filesMatch>
+</IfModule>

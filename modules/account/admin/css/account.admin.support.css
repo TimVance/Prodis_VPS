@@ -1,0 +1,251 @@
+.subject {
+	background: #fff;
+	padding: 20px 20px;
+	margin: 0;
+}
+.subject:nth-of-type(2n+1) {
+	background: #ecf0f1;
+}
+
+.subject .date {
+	display: inline-block;
+	width: 114px;
+	vertical-align: middle;
+
+	font-size: 12px;
+	color: #888;
+	font-weight: bold;
+}
+
+.subject .title,
+.subject .message {
+	display: inline-block;
+	width: calc(50% - 120px);
+	vertical-align: middle;
+}
+
+.subject .title {
+	color: #ff4a0b;
+	font-weight: bold;
+}
+
+.subject .message {
+	color: #000;
+}
+
+.subject .message .src {
+    font-weight: bold;
+}
+
+
+.subject .unreaded {
+	display: block;
+	background-color: #aaa;
+	color: #fff;
+	padding: 0px 5px;
+	float: right;
+}
+
+.form-tags {
+	position: relative;
+	display: block;
+	margin: 10px 0;
+}
+.form-tags .tag {
+  cursor: pointer;
+  border-bottom: 1px dashed;
+  margin: 0 15px 0 0;
+  position: relative;
+  text-decoration: none;
+}
+.form-tags .js-moretags {
+  background: url(../img/ico_moretags.png) no-repeat right center;
+  padding-right: 15px;
+  border-bottom: 1px dashed;
+  cursor: pointer;
+  text-decoration: none;
+}
+.form-tags .tagspane {
+	width: 450px;
+	max-height: 400px;
+	overflow: auto;
+}
+.form-tags .tagspane {
+	box-shadow: 0 3px 15px -5px rgba(0,0,0,0.9);
+	display: block;
+	padding: 20px;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	right: 0;
+	background: white;
+	z-index: 100;
+	display: none;
+}
+.tp-url .form-tags .tagspane .tag {
+	margin: 0px 15px 0px 0px;
+	max-width: 160px;
+	overflow: hidden;
+	display: inline-block;
+	max-height: 22px;
+	word-break: break-all;
+}
+
+.attention_box {
+	padding: 20px 20px;
+	margin: 0;
+	background-color: #e84c3d;
+	color: #fff;
+}
+.attention_box a {
+	color: #dedede;
+	transition: color 0.3s, border 0.4s, opacity 0.3s;
+	opacity: 1;
+	text-decoration: none;
+}
+.attention_box a:hover {
+  opacity: 0.6;
+}
+.attention_box a > span {
+	white-space: nowrap;
+}
+
+
+.bbcode_smiles
+{
+	float: left;
+	border: 1px solid #CCC;
+	margin: 1px;
+	background: #fff url("../../../../modules/bbcode/smiles/smile.gif") no-repeat center;
+	width: 25px;
+	height: 27px;
+}
+.bbcode_smiles div
+{
+	position: absolute;
+	border: 1px solid #CCC;
+	background: #fff;
+	margin: 29px 0 0 -1px;
+	display: none;
+}
+.bbutton {
+    border: 1px solid #CCC;
+    margin: 1px;
+    padding: 2px;
+}
+
+
+.questions {
+	background: #ecf0f1;
+	padding: 20px 35px 20px 20px;
+	margin: 0;
+}
+
+.questions .date {
+	display: inline-block;
+	width: 114px;
+	vertical-align: middle;
+
+	font-size: 12px;
+	color: #888;
+	font-weight: bold;
+	text-align: right;
+}
+
+.questions .title {
+	display: inline-block;
+	width: calc(100% - 120px);
+	vertical-align: middle;
+}
+
+.questions .title {
+	color: #ff4a0b;
+	font-weight: bold;
+}
+
+.messages .avatar {
+	width: 57px;
+	float: left;
+}
+.messages .avatar img{
+	width: 45px;
+	height: 45px;
+}
+.message_item {
+	padding: 20px 0px 10px 0px;
+	border-top: 1px solid #E1E6E7;
+	position: relative;
+}
+.message_item:first-of-type {
+	border-top: 1px solid transparent;
+}
+.message_item h3 {
+	font-family: 'Open Sans', sans-serif;
+	font-weight: bold;
+	position: relative;
+	margin: 10px 0 7px 0;
+	font-size: 14px;
+	color: #e84c3d;
+}
+.message_item h3.you {
+	color: black;
+}
+.message_item h3 .date {
+	float: right;
+	font-size: 10px;
+	color: #888;
+	font-weight: bold;
+}
+.message_item .message_body {
+	vertical-align: top;
+	margin-left: 57px;
+	min-height: 49px;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+	word-break: break-word;
+}
+.messages_container {
+	border-bottom: 1px solid #bdc3c7;
+	margin-bottom: 0;
+	min-height: 400px;
+	padding: 0 20px;
+}
+.scrollable {
+	height: 391px;
+	overflow: hidden;
+	overflow-y: scroll;
+}
+
+
+.form_support textarea {
+	width: 100%;
+	max-width: 100%;
+	height: 245px;
+}
+.form_support textarea:placeholder,
+.form_support textarea::placeholder,
+.form_support textarea::-webkit-input-placeholder,
+.form_support textarea::-moz-placeholder,
+.form_support textarea:-moz-placeholder,
+.form_support textarea:-ms-input-placeholder {
+	color:#999999 !important;
+}
+
+.form_support .jq-file__name {
+	display: inline-block;
+	width: initial;
+	vertical-align: middle;
+}
+.form_support .file_remove {
+	cursor: pointer;
+	background: url(../img/ico_close.png) no-repeat center center;
+	display: inline-block;
+	width: 15px;
+	height: 20px;
+	vertical-align: middle;
+}
+
+.form_support #subject_close {
+	float: right;
+	margin: 0px;
+}

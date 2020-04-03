@@ -1,0 +1,340 @@
+/**
+ * Плагин для визуального редактора, CSS
+ * 
+ * @package    DIAFAN.CMS
+ * @author     diafan.ru
+ * @version    6.0
+ * @license    http://www.diafan.ru/license.html
+ * @copyright  Copyright (c) 2003-2018 OOO «Диафан» (http://www.diafan.ru/)
+ */
+body {
+    margin: 0px;
+    font-family: Trebuchet MS, Verdana, sans-serif;
+    background-color: #f0efea;
+    font-size: 13px;
+    color: #1d1d1d;
+}
+
+img {
+    border: 0px;
+}
+
+table.list {
+    width: 100%;
+}
+
+.hide {
+    display: none;
+}
+
+table {
+    clear: right;
+    border: 0px;
+    border-collapse: collapse;
+}
+
+table td {
+    padding: 0px;
+}
+
+div, td, font, table {
+
+}
+
+a:link, a:visited {
+    COLOR: #24288d;
+    text-decoration: underline;
+}
+
+a:hover {
+    COLOR: #24288d;
+    text-decoration: none;
+}
+a.dashed_link:link, a.dashed_link:visited {
+    border-bottom: 1px dashed #24288d;
+    text-decoration: none;
+}
+a.dashed_link:hover {
+    border-bottom: 0px;
+    text-decoration: none;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+}
+hr
+{
+	height: 1px;
+	border: 0px;
+	color: #ddd;
+	background-color: #ddd;
+}
+
+.clear {
+    clear: both;
+}
+
+.button {
+    height: 24px;
+    border: 0;
+    color: #fdfdfd;
+    font-size: 11px;
+    cursor: pointer;
+    border-radius: 4px;
+    padding: 0 10px 0 10px;
+}
+
+.main {
+    width: 100%;
+	height: 100%;
+    border-radius: 0 2px 0 0;
+    vertical-align: top;
+    
+}
+.main_td{
+	padding: 0 25px 25px 25px;
+}
+
+h1 {
+    font-size: 18px;
+    color: #000000;
+    margin: 0;
+    padding: 20px 0 20px 0;
+}
+
+.images_loading{
+    height: 15px;
+    width: 15px;
+    overflow: hidden;
+    display: block;
+	background-image: url(../../adm/img/loading.gif);
+}
+.error {
+    border: 1px solid #c05f5f;
+    padding: 7px 7px 7px 30px;
+    color: #c05f5f;
+    margin: 0 0 3px 0;
+}
+
+.ok {
+    border: 1px solid #5da333;
+    padding: 7px 7px 7px 30px;
+    color: #67a83f;
+    margin: 0 0 3px 0;
+}
+
+.block {
+    border: 1px solid #ededed;
+    background: #f7f7f7;
+    padding: 10px;
+    margin: 0 0 3px 0;
+    clear: left;
+}
+
+input[type=text], input[type=password], textarea {
+    border: 1px solid #c3c3c3;
+}
+
+.tabs {
+    margin: 15px 0 15px 0;
+    position: relative;
+    z-index: 2;
+}
+
+.tabs_line {
+    min-width: 681px;
+    width: 100%;
+    height: 1px;
+    background: #a7a7a7;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.tabs li {
+    list-style-type: none;
+    float: left;
+    position: relative;
+    z-index: 3;
+}
+
+.tabs li a {
+    display: block;
+    height: 23px;
+    padding: 5px 10px 0 10px;
+    text-decoration: none;
+}
+
+
+.tabs .tab_act a {
+    height: 24px;
+}
+
+.tab {
+    border-top: 1px solid #d5d5d5;
+    height: 29px;
+}
+
+.tab_act {
+    border-top: 1px solid #a7a7a7;
+}
+
+.left_tab {
+    width: 1px;
+    height: 29px;
+    position: absolute;
+    top: -1px;
+    left: 0;
+}
+
+.right_tab {
+    width: 2px;
+    height: 29px;
+    position: absolute;
+    top: -1px;
+    right: 0;
+}
+
+.left_tab_act {
+    width: 1px;
+    height: 30px;
+    position: absolute;
+    top: -1px;
+    left: 0;
+}
+
+.right_tab_act {
+    width: 2px;
+    height: 30px;
+    position: absolute;
+    top: -1px;
+    right: 0;
+}
+
+.left_tab_act_first {
+    width: 2px;
+    height: 30px;
+	position: absolute;
+    top: -1px;
+    left: 0;
+}
+
+.left_tab_first {
+    width: 2px;
+    height: 29px;
+    position: absolute;
+    top: -1px;
+    left: 0;
+}
+
+.table_edit {
+    width: 100%;
+}
+
+.td_first {
+    width: 30%;
+    text-align: right;
+}
+
+table.table_edit td {
+    padding: 5px;
+}
+.add_new {
+    padding: 17px 0 17px 20px;
+}
+.folder_open {
+    padding: 5px 0 5px 20px;
+	min-height: 14px;
+}
+.folder {
+    padding: 5px 0 5px 20px;
+	min-height: 14px;
+}
+.folders {
+	float: left;
+	padding-right: 10px;
+	width: 180px;
+	border-right: 1px gray solid;
+	margin-right: 30px;
+	clear: both;
+}
+.folder_edit{
+	margin-left: 5px;
+	float: right;
+}
+/* Изображения */
+.images_actions {
+    padding: 0px;
+    margin: 0px;
+    width: 100px;
+	height: 70px;
+	float: left;
+}
+.images_container {
+	padding-bottom: 20px; 
+}
+.images_action_delete{
+	float: right;
+}
+.image{
+	float: left;
+}
+#selectarea{
+	border: 1px solid #C4C4C4;
+	background: #F4F4F4;
+	padding: 10px;
+	margin: 10px 0px;
+	display: none;
+}
+.div_images_links{
+	display: none;
+}
+.div_images_links textarea{
+	margin: 5px 0;
+}
+.first .image {
+    border: 2px solid #EA7F1C;
+}
+.images_actions .images_button {
+    float: left;
+    display: none;
+}
+
+.images_actions .images_button a {
+    margin-left: 5px;
+}
+
+.images_actions p {
+    margin: 0px;
+    padding: 0px;
+    clear: right;
+	height: 30px;
+}
+
+.images_actions p input {
+    float: right;
+    margin-bottom: 5px;
+    width: 225px;
+}
+
+.images_actions .button {
+    float: right;
+}
+
+.images_loading_resize{
+	display: none;
+}
+#upload{
+	clear: both;
+	padding-top: 20px;
+	padding-left: 200px;
+}
+#file-uploader{
+    clear: both;
+}
+.images_status{
+    background: transparent url('../../adm/img/loading.gif') no-repeat center left;
+	padding: 5px 0 5px 17px;
+}

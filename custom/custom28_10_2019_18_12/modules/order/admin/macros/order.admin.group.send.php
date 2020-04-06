@@ -93,14 +93,6 @@ class Order_admin_group_send extends Diafan
                 mkdir($dir, 0777, true);
 
             $doc->saveAs($dir . '/doc_tmp2.docx');
-            /*
-            require_once $_SERVER["DOCUMENT_ROOT"].'/custom/custom28_10_2019_18_12/plugins/MSWord2Image/MsWordToImageConvert.php';
-            $apiUser = '6364081511';
-            $apiKey = '7108900895833360089375649';
-            $convert = new MsWordToImageConvert($apiUser, $apiKey);
-            $convert->fromURL('http://mswordtoimage.com/docs/demo.doc');
-            $convert->toFile($dir.'/demo4.jpeg');
-            */
 
             $converter = new NcJoes\OfficeConverter\OfficeConverter($dir.'/doc_tmp2.docx');
             $converter->convertTo($dir.'/doc_tmp2.pdf');

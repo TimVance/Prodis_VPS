@@ -35,8 +35,11 @@ AddDefaultCharset utf-8
 # RewriteRule (.*) http://www.%{HTTP_HOST}/$1 [R=301,L]
 
 # и наоборот: раскомментируйте эти две строки, чтобы был редирект с www на без www
-# RewriteCond %{HTTP_HOST} ^www\.(.*) [NC]
-# RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+ RewriteCond %{HTTP_HOST} ^www\.(.*) [NC]
+ RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+
+RewriteCond %{HTTPS} =off
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [QSA,L]
 
   RewriteCond %{HTTP:Authorization} !^$
   RewriteCond %{REQUEST_URI} ^/shop/1c/.*

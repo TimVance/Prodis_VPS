@@ -1,5 +1,9 @@
 $(function() {
 
+
+    $("#next_step").css("display", "none");
+    $("#next_step input").val('0');
+
     // Табы
     $(".tabs-period > span").click(function() {
         $(".tabs-period > span, .tabs-wrapper > div").removeClass("active");

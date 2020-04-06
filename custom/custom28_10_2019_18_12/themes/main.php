@@ -30,7 +30,7 @@ if(! defined("DIAFAN"))
                 <div class="row"><insert name="show_block" module="news" count="3" template="main"></insert></div>
             </div>
 
-            <div class="caption revealator-slideup">Ваши заявки test</div>
+            <div class="caption revealator-slideup">Ваши заявки</div>
             <div class="main_orders white-box revealator-slideup">
                 <insert name="show_block" module="userpage"></insert>
                 <insert name="show_include" file="show_orders_table"></insert>

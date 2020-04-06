@@ -28,10 +28,17 @@ function calculateNextStep() {
         $next = 0;
         if($reglament[0] == 't1') {
             // Таб дни
+            $t1_day = $reglament[1];
+            $t1_month = intval($reglament[2]);
             $t1_time = $reglament[3];
+            $next_date = 0;
+            $date = strtotime(date("Y-m-d", time())." ".$t1_time);
 
-            $today_date = date("Y-m-d", time());
-            $next = strtotime($today_date.' '.$t1_time);
+            while($next_date < time()) {
+                if($date > time()) $next_date = $date;
+                else $date = strtotime("+1 days", $date);
+            }
+            $next = $next_date;
         }
         elseif ($reglament[0] == 't2') {
             // Таб недели
@@ -320,7 +327,16 @@ function setNextTime($time, $id) {
     DB::query("UPDATE {reglament} SET next_step=%d WHERE id=%d", $time, $id);
 }
 
+function sendMails() {
+    $rows = DB::query_fetch_all("SELECT * FROM {reglament} WHERE trash='0' AND next_step<'%d' AND next_step>'0'", time());
+    foreach ($rows as $row) {
+        print_r($row);
+    }
+}
+
 function init() {
+
+    sendMails();
 
     // Расчет следующего шага
     calculateNextStep();

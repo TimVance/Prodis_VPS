@@ -22,6 +22,11 @@ if (! defined('DIAFAN'))
 	}
 	include $path.'/includes/404.php';
 }
+
+if (empty($this->diafan->_users->id))
+    $this->diafan->redirect('/auth/');
+
+
 ?><!DOCTYPE html>
 <html>
 <head>

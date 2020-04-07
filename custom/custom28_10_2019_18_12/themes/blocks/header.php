@@ -12,8 +12,8 @@ if (! defined('DIAFAN'))
 ?>
 <?php
 
-    if (empty($this->diafan->_users->id))
-        $this->diafan->redirect('/auth/');
+    //if (empty($this->diafan->_users->id))
+        //$this->diafan->redirect('/auth/');
 
     // Узнаем группу пользователя
     $role = DB::query_result("SELECT r.[name] FROM {users} AS u RIGHT JOIN {users_role} AS r ON r.id=u.role_id WHERE u.id='%d'", $this->diafan->_users->id);

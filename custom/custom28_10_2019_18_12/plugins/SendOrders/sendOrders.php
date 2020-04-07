@@ -70,7 +70,6 @@ Class SendOrders
                 $array_emails = explode(",", $shop_emails);
                 foreach ($array_emails as $email) {
                     $mail->addAddress($email);
-                    echo $email;
                 }
             }
 
@@ -79,7 +78,6 @@ Class SendOrders
             $mail->Subject = 'OOO Продис';
             $mail->Body    = 'Для Вас сформирован документ';
             $mail->send();
-            exit();
 
         } else {
             //город тц трекер

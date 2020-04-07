@@ -72,7 +72,7 @@ class Reglament_admin extends Frame_admin
             ),
             'ids' => array(
                 'type' => 'text',
-                'name' => 'Номера заказов через запятую',
+                'name' => 'Номера заявок через запятую',
                 'help' => 'Свободное информационное текстовое поле.',
             ),
             'replication' => array(
@@ -87,7 +87,7 @@ class Reglament_admin extends Frame_admin
             'next_step' => array(
                 'type' => 'text',
                 'default' => 0,
-                'name' => 'Номера заказов через запятую',
+                'name' => 'Номера заявок через запятую',
                 'help' => 'Свободное информационное текстовое поле.',
             ),
         ),

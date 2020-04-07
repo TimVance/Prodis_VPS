@@ -330,7 +330,20 @@ function setNextTime($time, $id) {
 function sendMails() {
     $rows = DB::query_fetch_all("SELECT * FROM {reglament} WHERE trash='0' AND next_step<'%d' AND next_step>'0'", time());
     foreach ($rows as $row) {
-        print_r($row);
+        if (!empty($row["ids"])) {
+            $ids = explode(",", $row["ids"]);
+            $int_ids = array();
+
+            // Очистка от лишних пробелов
+            foreach ($ids as $i => $id) {
+                $new_ids[] = intval($id);
+            }
+
+            require "custom/custom28_10_2019_18_12/plugins/SendOrders/sendOrders.php";
+            $sendOrders = new SendOrders();
+            $sendOrders->send($new_ids);
+
+        }
     }
 }
 
@@ -339,10 +352,10 @@ function init() {
     sendMails();
 
     // Расчет следующего шага
-    calculateNextStep();
+    //calculateNextStep();
 
     // Пересчет следующего шага
-    recalcNextStep();
+    //recalcNextStep();
 
 }
 

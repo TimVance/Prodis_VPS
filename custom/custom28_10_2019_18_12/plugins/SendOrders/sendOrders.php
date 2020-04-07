@@ -16,10 +16,17 @@ Class SendOrders
             $arValues = array(
                 'boss_name'  => (!empty($params[13]["value"]) ? $params[13]["value"] : ''),
                 'boss_phone' => (!empty($params[25]["value"]) ? $params[25]["value"] : ''),
-                'date'       => date("d.m.y", strtotime($params[5]["value"])) . ' - ' . date("d.m.y", strtotime($params[17]["value"])),
                 'work'       => (!empty($params[19]["value"] == 9) ? 'Разрешение на проведение работ' : 'Заявка на ввоз/вывоз'),
                 'extra'      => (!empty($params[24]["value"]) ? $params[24]["value"] : ''),
             );
+
+            if (!empty($params[5]["value"]) && !empty($params[17]["value"])) {
+                $arValues["date"] = date("d.m.y", strtotime($params[5]["value"])) . ' - ' . date("d.m.y", strtotime($params[17]["value"]));
+            }
+            else {
+                $arValues["date"] = '';
+            }
+
             $doc->setValues($arValues);
 
             $names = [];
@@ -49,17 +56,31 @@ Class SendOrders
             $doc->saveAs($dir . '/doc_tmp.docx');
 
             $converter = new NcJoes\OfficeConverter\OfficeConverter($dir . '/doc_tmp.docx');
-            $converter->convertTo($dir . '/doc_tmp.pdf');
+            $converter->convertTo('doc_tmp.pdf');
 
             $from_mail = EMAIL_CONFIG;
             $mail      = new PHPMailer\PHPMailer\PHPMailer();
             $mail->setFrom($from_mail);
             $mail->addAddress($from_mail);
+
+            $order_information = $this->getOrdersInfo($ids);
+            if (!empty($order_information[$ids[0]]["id"])) {
+                $shop_emails = $this->getShopEmail($order_information[$ids[0]]["id"]);
+                $shop_emails = str_replace(' ', '', $shop_emails);
+                $array_emails = explode(",", $shop_emails);
+                foreach ($array_emails as $email) {
+                    $mail->addAddress($email);
+                    echo $email;
+                }
+            }
+
             $mail->AddAttachment($dir . '/doc_tmp.pdf', 'order.pdf', $encoding = 'base64', $type = 'application/pdf');
             $mail->isHTML(true);
             $mail->Subject = 'OOO Продис';
             $mail->Body    = 'Для Вас сформирован документ';
             $mail->send();
+            exit();
+
         } else {
             //город тц трекер
             $orders = $this->getOrdersInfo($ids);
@@ -158,12 +179,23 @@ Class SendOrders
                 $mail      = new PHPMailer\PHPMailer\PHPMailer();
                 $mail->setFrom($from_mail);
                 $mail->addAddress($from_mail);
+
+                $order_information = $this->getOrdersInfo($ids);
+                if (!empty($order_information[$ids[0]]["id"])) {
+                    $shop_emails = $this->getShopEmail($order_information[$ids[0]]["id"]);
+                    $shop_emails = str_replace(' ', '', $shop_emails);
+                    $array_emails = explode(",", $shop_emails);
+                    foreach ($array_emails as $email) {
+                        $mail->addAddress($email);
+                        echo $email;
+                    }
+                }
+
                 $mail->AddAttachment($dir . '/doc_tmp.pdf', 'order.pdf', $encoding = 'base64', $type = 'application/pdf');
                 $mail->isHTML(true);
                 $mail->Subject = 'OOO Продис';
                 $mail->Body    = 'Для Вас сформирован документ';
                 $mail->send();
-                echo '1';
             }
         }
     }
@@ -218,6 +250,13 @@ Class SendOrders
                 AND orders.trash='0' AND goods.trash='0'
                  ",
             "order_id");
+    }
+
+    private function getShopEmail($id) {
+        return DB::query_result("
+                SELECT [value] FROM {shop_param_element}
+                WHERE param_id='9' AND element_id='%d' AND trash='0'
+            ", $id);
     }
 
 }

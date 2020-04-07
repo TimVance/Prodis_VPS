@@ -170,20 +170,23 @@ function recalcNextStep() {
             $t1_time = $reglament[3];
 
             $last_date = (!empty($row["last_action"]) ? $row["last_action"] : $row["created"]);
-            $next_date = strtotime("+".$t1_day." days", $last_date);
-            $last_action_month = date("n", $last_date);
-            $current_month = date("n", $next_date);
-            if($last_action_month == $current_month) {
-                $today_date = date("Y-m-d", $next_date);
-                $next = strtotime($today_date.' '.$t1_time);
-            }
-            else {
-                $today_date = date("Y-m-d", time());
-                $today_time = strtotime($today_date.' '.$t1_time);
+            while($next < time()) {
+                $next_date = strtotime("+".$t1_day." days", $last_date);
+                $last_action_month = date("n", $last_date);
+                $current_month = date("n", $next_date);
+                if($last_action_month == $current_month) {
+                    $today_date = date("Y-m-d", $next_date);
+                    $next = strtotime($today_date.' '.$t1_time);
+                }
+                else {
+                    $today_date = date("Y-m-d", time());
+                    $today_time = strtotime($today_date.' '.$t1_time);
 
-                $d = new DateTime(date("Y-m-d H:i:s", $today_time));
-                $d->modify( 'first day of +'.$t1_month.' month' );
-                $next = strtotime($d->format("Y-m-d H:i:s"));
+                    $d = new DateTime(date("Y-m-d H:i:s", $today_time));
+                    $d->modify( 'first day of +'.$t1_month.' month' );
+                    $next = strtotime($d->format("Y-m-d H:i:s"));
+                }
+                $last_date = strtotime("+".$t1_day." days", $last_date);
             }
         }
         elseif ($reglament[0] == 't2') {
@@ -343,19 +346,21 @@ function sendMails() {
             $sendOrders = new SendOrders();
             $sendOrders->send($new_ids);
 
+            DB::query("UPDATE {reglament} SET last_action=%d WHERE id=%d", time(), $row["id"]);
         }
     }
 }
 
 function init() {
 
+    // Отправка заказов
     sendMails();
 
     // Расчет следующего шага
-    //calculateNextStep();
+    calculateNextStep();
 
     // Пересчет следующего шага
-    //recalcNextStep();
+    recalcNextStep();
 
 }
 

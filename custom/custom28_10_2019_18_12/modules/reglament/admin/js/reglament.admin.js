@@ -30,7 +30,7 @@ $(function() {
         }
     });
     let url = $.getUrlVar('orders');
-    if(url != '') $("input[name='ids']").val(url);
+    if(url) $("input[name='ids']").val(url);
 
 
     // Дни

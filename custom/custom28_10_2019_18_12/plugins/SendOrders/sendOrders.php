@@ -5,6 +5,11 @@ Class SendOrders
 
     public function send($ids)
     {
+
+        $mail_information = $this->getMailInformation();
+        $mail_title = $mail_information["title"];
+        $mail_text = $mail_information["text"];
+
         if (count($ids) == 1) {
             $files  = $this->getFile($ids[0]);
             $params = $this->getOrderParamElement($ids[0]);
@@ -75,8 +80,10 @@ Class SendOrders
 
             $mail->AddAttachment($dir . '/doc_tmp.pdf', 'order.pdf', $encoding = 'base64', $type = 'application/pdf');
             $mail->isHTML(true);
-            $mail->Subject = 'OOO Продис';
-            $mail->Body    = 'Для Вас сформирован документ';
+            $mail->CharSet = "UTF-8";
+            $mail->setLanguage('ru');
+            $mail->Subject = $mail_title;
+            $mail->Body    = $mail_text;
             $mail->send();
 
         } else {
@@ -191,8 +198,10 @@ Class SendOrders
 
                 $mail->AddAttachment($dir . '/doc_tmp.pdf', 'order.pdf', $encoding = 'base64', $type = 'application/pdf');
                 $mail->isHTML(true);
-                $mail->Subject = 'OOO Продис';
-                $mail->Body    = 'Для Вас сформирован документ';
+                $mail->CharSet = "UTF-8";
+                $mail->setLanguage('ru');
+                $mail->Subject = $mail_title;
+                $mail->Body    = $mail_text;
                 $mail->send();
             }
         }
@@ -255,6 +264,18 @@ Class SendOrders
                 SELECT [value] FROM {shop_param_element}
                 WHERE param_id='9' AND element_id='%d' AND trash='0'
             ", $id);
+    }
+
+    private function getMailInformation() {
+        $info_block = DB::query_fetch_key("
+                SELECT id, [text] FROM {site_blocks}
+                WHERE id='5' OR id='6' AND trash='0'
+            ", "id");
+        $data = array(
+            "title" => $info_block[5]["text"],
+            "text" => $info_block[6]["text"]
+        );
+        return $data;
     }
 
 }

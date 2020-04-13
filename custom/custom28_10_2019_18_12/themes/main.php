@@ -29,7 +29,6 @@ if(! defined("DIAFAN"))
                 <div class="block_header caption"><insert value="Последние новости"></insert></div>
                 <div class="row"><insert name="show_block" module="news" count="3" template="main"></insert></div>
             </div>
-
             <div class="caption revealator-slideup">Ваши заявки</div>
             <div class="main_orders white-box revealator-slideup">
                 <insert name="show_block" module="userpage"></insert>

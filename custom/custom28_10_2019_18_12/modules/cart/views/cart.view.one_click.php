@@ -105,7 +105,7 @@ if (! empty($result["rows_param"]))
 
 			case 'textarea':
 				echo '<div class="infofield">'.$row["name"].($row["required"] ? '<span style="color:red;">*</span>' : '').':</div>
-				<textarea placeholder="'.strip_tags($row["text"]).'" class="form-control" name="p'.$row["id"].'" rows="3">'.$value.'</textarea>';
+				<textarea placeholder="'.strip_tags($row["text"]).'" class="form-control" name="p'.$row["id"].'" rows="3">'.strip_tags(htmlspecialchars_decode($value)).'</textarea>';
 				break;
 
 			case 'date':

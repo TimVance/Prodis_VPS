@@ -36,11 +36,13 @@ Class SendOrders
 
             $names = [];
             if (!empty($params[28]["value"])) {
-                $names = explode("<br />", $params[28]["value"]);
+                if (strpos($params[28]["value"], "<br />")) $names = explode("<br />", $params[28]["value"]);
+                else $names = explode("\n", $params[28]["value"]);
             }
             $passports = [];
             if (!empty($params[31]["value"])) {
-                $passports = explode("<br />", $params[31]["value"]);
+                if (strpos($params[31]["value"], "<br />")) $passports = explode("<br />", $params[31]["value"]);
+                else $passports = explode("\n", $params[31]["value"]);
             }
             $values = [];
             if (count($names) > 0) {
@@ -125,7 +127,14 @@ Class SendOrders
                     if (!empty($params[$id][28]["value"])) {
                         $names_array     = [];
                         $passports_array = [];
-                        $names_array     = explode("<br />", $params[$id][28]["value"]);
+                        if (!empty($params[28]["value"])) {
+                            if (strpos($params[28]["value"], "<br />")) $names_array = explode("<br />", $params[28]["value"]);
+                            else $names_array = explode("\n", $params[28]["value"]);
+                        }
+                        if (!empty($params[31]["value"])) {
+                            if (strpos($params[31]["value"], "<br />")) $passports_array = explode("<br />", $params[31]["value"]);
+                            else $passports_array = explode("\n", $params[31]["value"]);
+                        }
                         $passports_array = explode("<br />", $params[$id][31]["value"]);
                         $names[]         = $names_array[0];
                         $names[]         = $names_array[1];

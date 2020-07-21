@@ -59,12 +59,28 @@ class Order_admin_group_download extends Diafan
             $doc     = new PhpOffice\PhpWord\TemplateProcessor('https://' . $_SERVER['HTTP_HOST'] . '/attachments/get/' . $files["id"] . '/' . $files["name"]);
 
             $arValues = array(
-                'boss_name'  => (!empty($params[13]["value"]) ? $params[13]["value"] : ''),
-                'boss_phone' => (!empty($params[25]["value"]) ? $params[25]["value"] : ''),
-                'date'       => date("d.m.y", strtotime($params[5]["value"])) . ' - ' . date("d.m.y", strtotime($params[17]["value"])),
-                'work'       => (!empty($params[19]["value"] == 9) ? 'Разрешение на проведение работ' : 'Заявка на ввоз/вывоз'),
-                'extra'      => (!empty($params[24]["value"]) ? $params[24]["value"] : ''),
+                'boss_name'    => (!empty($params[13]["value"]) ? $params[13]["value"] : ''),
+                'boss_phone'   => (!empty($params[25]["value"]) ? $params[25]["value"] : ''),
+                'work'         => (!empty($params[19]["value"] == 9) ? 'Разрешение на проведение работ' : 'Заявка на ввоз/вывоз'),
+                'type'         => (!empty($params[24]["value"]) ? $params[24]["value"] : ''), // уточнить надо
+                'place_desc'   => (!empty($params[6]["value"]) ? $params[6]["value"] : ''),
+                'floor'        => (!empty($params[4]["value"]) ? $params[4]["value"] : ''),
+                'auto_numbers' => (!empty($params[24]["value"]) ? $params[24]["value"] : ''), // позже
+                'auto_brand'   => (!empty($params[24]["value"]) ? $params[24]["value"] : ''), // позже
+                'dop'          => (!empty($params[14]["value"]) ? $params[14]["value"] : ''),
+                'text_import'  => (!empty($params[7]["value"]) ? $params[7]["value"] : ''),
+                'text_export'  => (!empty($params[11]["value"]) ? $params[11]["value"] : ''),
+                'dimensions'   => (!empty($params[24]["value"]) ? $params[24]["value"] : ''), // позже
+                'weight'       => (!empty($params[24]["value"]) ? $params[24]["value"] : ''), // позже
+                'power'        => (!empty($params[24]["value"]) ? $params[24]["value"] : ''), // позже
             );
+
+            if (!empty($params[5]["value"]) && !empty($params[17]["value"])) {
+                $arValues["date"] = date("d.m.y", strtotime($params[5]["value"])) . ' - ' . date("d.m.y", strtotime($params[17]["value"]));
+            } else {
+                $arValues["date"] = '';
+            }
+
             $doc->setValues($arValues);
 
             $names = [];

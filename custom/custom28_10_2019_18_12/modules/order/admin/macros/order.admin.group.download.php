@@ -58,11 +58,16 @@ class Order_admin_group_download extends Diafan
             $phpWord = new PhpOffice\PhpWord\PhpWord();
             $doc     = new PhpOffice\PhpWord\TemplateProcessor('https://' . $_SERVER['HTTP_HOST'] . '/attachments/get/' . $files["id"] . '/' . $files["name"]);
 
+            $type = '';
+            if (!empty($params[2]["value"])) $type = $params[2]["value"];
+            elseif (!empty($params[21]["value"])) $type = $params[21]["value"];
+            $types = $this->getTypes($ids[0]);
+
             $arValues = array(
                 'boss_name'    => (!empty($params[13]["value"]) ? $params[13]["value"] : ''),
                 'boss_phone'   => (!empty($params[25]["value"]) ? $params[25]["value"] : ''),
                 'work'         => (!empty($params[19]["value"] == 9) ? 'Разрешение на проведение работ' : 'Заявка на ввоз/вывоз'),
-                'type'         => (!empty($params[24]["value"]) ? $params[24]["value"] : ''), // уточнить надо
+                'type'         => $types[$type]["name"],
                 'place_desc'   => (!empty($params[6]["value"]) ? $params[6]["value"] : ''),
                 'floor'        => (!empty($params[4]["value"]) ? $params[4]["value"] : ''),
                 'auto_numbers' => (!empty($params[24]["value"]) ? $params[24]["value"] : ''), // позже
@@ -242,4 +247,11 @@ class Order_admin_group_download extends Diafan
                  ",
             "order_id");
     }
+
+    private function getTypes($ids) {
+        return DB::query_fetch_key("
+            SELECT id, [name] FROM {shop_order_param_select} WHERE param_id='2' OR param_id='21' AND trash='0'
+        ", "id");
+    }
+
 }

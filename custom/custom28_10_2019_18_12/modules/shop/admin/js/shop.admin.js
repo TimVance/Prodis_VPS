@@ -134,6 +134,7 @@ $('.item__labels a').click(function() {
 	return false;
 });
 
+
 $('input[name=file_type]').change(function () {
 	$('.file_type1').hide();
 	$('.file_type2').hide();
@@ -153,4 +154,5 @@ $(document).ready(function () {
 	$("#discounts").hide().prev().hide();
 	$(".unit.images h2").hide();
 	$("#hr4").hide().next().hide().next().hide().next().hide();
+	$("#images0").hide();
 });

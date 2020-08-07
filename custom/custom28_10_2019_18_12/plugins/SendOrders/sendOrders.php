@@ -56,11 +56,11 @@ class SendOrders
             $values = [];
             if (count($names) > 0) {
                 for ($i = 0; $i < count($names); $i++) {
-                    $values[] = ['staff_number' => $i + 1, 'staff_fio' => $names[$i], 'staff_passport' => $passports[$i]];
+                    $values[] = ['num' => $i + 1, 'staff_fio' => $names[$i], 'staff_passport' => $passports[$i]];
                 }
             }
             try {
-                $doc->cloneRowAndSetValues('staff_number', $values);
+                $doc->cloneRowAndSetValues('num', $values);
             } catch (Exception $e) {
                 ;
             }
@@ -161,13 +161,13 @@ class SendOrders
                     for ($i = 0; $i < count($names); $i++) {
                         if (!in_array($names[$i], $staff_fio)) {
                             $staff_fio[] = $names[$i];
-                            $values[]    = ['staff_number' => $n, 'staff_fio' => $names[$i], 'staff_passport' => $passports[$i]];
+                            $values[]    = ['num' => $n, 'staff_fio' => $names[$i], 'staff_passport' => $passports[$i]];
                             $n++;
                         }
                     }
                 }
                 try {
-                    $doc->cloneRowAndSetValues('staff_number', $values);
+                    $doc->cloneRowAndSetValues('num', $values);
                 } catch (Exception $e) {
                     ;
                 }

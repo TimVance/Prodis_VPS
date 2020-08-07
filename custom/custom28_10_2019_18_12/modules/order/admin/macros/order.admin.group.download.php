@@ -65,13 +65,32 @@ class Order_admin_group_download extends Diafan
                 elseif (!empty($params[21]["value"])) $type = $params[21]["value"];
                 $types = $this->getTypes($ids[0]);
 
+                // Дата создания
+                $date_create = $this->getDateCreate($ids[0]);
+                $date_create["created"] = date("d.m.Y", $date_create["created"]);
+
+                // Этаж
+                $floor = '';
+                if (!empty($params[26]["value"])) {
+                    $floor .= 'с '.$params[26]["value"].' этажа';
+                    if (!empty($params[29]["value"])) {
+                        $floor .= ' на '.$params[29]["value"].' этаж';
+                    }
+                }
+                else {
+                    if (!empty($params[4]["value"])) {
+                        $floor = $params[4]["value"].' этаж';
+                    }
+                }
+
                 $arValues = array(
+                    'created' => (!empty($date_create["created"]) ? $date_create["created"] : ''),
                     'boss_name'    => (!empty($params[13]["value"]) ? $params[13]["value"] : ''),
                     'boss_phone'   => (!empty($params[25]["value"]) ? $params[25]["value"] : ''),
                     'work'         => (!empty($params[19]["value"] == 9) ? 'Разрешение на проведение работ' : 'Заявка на ввоз/вывоз'),
                     'type'         => $types[$type]["name"],
                     'place_desc'   => (!empty($params[6]["value"]) ? $params[6]["value"] : ''),
-                    'floor'        => (!empty($params[4]["value"]) ? $params[4]["value"] : ''),
+                    'floor'        => $floor,
                     'auto_numbers' => (!empty($params[24]["value"]) ? $params[24]["value"] : ''), // позже
                     'auto_brand'   => (!empty($params[24]["value"]) ? $params[24]["value"] : ''), // позже
                     'dop'          => (!empty($params[14]["value"]) ? $params[14]["value"] : ''),
@@ -290,6 +309,12 @@ class Order_admin_group_download extends Diafan
         return DB::query_fetch_key("
             SELECT id, [name] FROM {shop_order_param_select} WHERE param_id='2' OR param_id='21' AND trash='0'
         ", "id");
+    }
+
+    private function getDateCreate($ids) {
+        return DB::query_fetch_array("
+            SELECT created FROM {shop_order} WHERE id='%d'
+        ", $ids);
     }
 
 }

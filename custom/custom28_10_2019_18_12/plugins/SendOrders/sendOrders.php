@@ -17,7 +17,6 @@ class SendOrders
             $phpWord = new PhpOffice\PhpWord\PhpWord();
             $doc     = new PhpOffice\PhpWord\TemplateProcessor('https://' . $_SERVER['HTTP_HOST'] . '/attachments/get/' . $files["id"] . '/' . $files["name"]);
 
-
             $arValues = array(
                 'boss_name'    => (!empty($params[13]["value"]) ? $params[13]["value"] : ''),
                 'boss_phone'   => (!empty($params[25]["value"]) ? $params[25]["value"] : ''),

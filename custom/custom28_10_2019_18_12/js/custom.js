@@ -9,6 +9,7 @@ $(function() {
                 form.find('.vvoz-hide').slideDown();
                 form.find('.agree-hide').slideUp();
                 form.find('.form-group30').slideUp();
+                form.find('.form-group33').slideUp();
                 break;
             case "9":
                 form.removeClass("tracker-no-select");
@@ -16,6 +17,7 @@ $(function() {
                 form.find('.vvoz-hide').slideUp();
                 form.find('.agree-hide').slideDown();
                 form.find('.form-group30').slideDown();
+                form.find('.form-group33').slideDown();
                 break;
             default:
                 form.addClass("tracker-no-select");
@@ -34,6 +36,7 @@ $(function() {
                 form.find('.novoform').slideUp();
                 form.find('.form-group4').slideUp();
                 form.find('.form-group30').slideUp();
+                form.find('.form-group33').slideUp();
                 form.find('.form-group12').slideDown();
                 break;
             case "5": // Замена
@@ -45,6 +48,7 @@ $(function() {
                 form.find('.novoform').slideUp();
                 form.find('.form-group4').slideDown();
                 form.find('.form-group30').slideDown();
+                form.find('.form-group33').slideDown();
                 form.find('.form-group12').slideUp();
                 break;
             case "15": // Вывоз
@@ -55,6 +59,7 @@ $(function() {
                 form.find('.novoform').slideUp();
                 form.find('.form-group4').slideUp();
                 form.find('.form-group30').slideDown();
+                form.find('.form-group33').slideDown();
                 form.find('.form-group12').slideUp();
                 break;
             case "6": // Новое оформление
@@ -65,6 +70,7 @@ $(function() {
                 form.find('.novoform').slideDown();
                 form.find('.form-group4').slideDown();
                 form.find('.form-group30').slideUp();
+                form.find('.form-group33').slideUp();
                 form.find('.form-group12').slideDown();
                 break;
             case "":
@@ -76,6 +82,7 @@ $(function() {
                 form.find('.novoform').slideUp();
                 form.find('.form-group4').slideDown();
                 form.find('.form-group30').slideUp();
+                form.find('.form-group33').slideUp();
                 form.find('.form-group12').slideDown();
                 break;
         }

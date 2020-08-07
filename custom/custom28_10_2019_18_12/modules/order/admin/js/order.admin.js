@@ -157,4 +157,5 @@ $(document).ready(function() {
 	$("#delivery_id").hide();
 	$("#delivery_info").hide();
 	$('.orders_bottom').hide();
+	$("#filed_created").after($("#order_goods_list").find(".item__in > .name .categories").parent().clone());
 });

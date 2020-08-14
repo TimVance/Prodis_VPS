@@ -33,7 +33,7 @@ class Order_admin_group_send extends Diafan
     public function show($value)
     {
         $config = array(
-            'name' => 'Отправить документ',
+            'name' => 'Отправить документы на почту',
         );
 
         return $config;

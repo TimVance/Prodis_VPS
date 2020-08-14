@@ -33,7 +33,7 @@ class Order_admin_group_download extends Diafan
     public function show($value)
     {
         $config = array(
-            'name' => 'Сформировать документ',
+            'name' => 'Скачать документы',
         );
 
         return $config;
@@ -147,7 +147,7 @@ class Order_admin_group_download extends Diafan
             //город тц трекер
             $orders = $this->getOrdersInfo($ids);
 
-            // Проверка на одинаковый товары и трекер
+            // Проверка на одинаковый тц
             $good_id  = 0;
             $k        = 0;
             $order_id = 0;
@@ -158,7 +158,7 @@ class Order_admin_group_download extends Diafan
                 } else {
                     if ($good_id == $order["id"]) continue;
                     else {
-                        echo 'Товары разные';
+                        echo 'ТЦ разные';
                         exit();
                     }
                 }
@@ -266,11 +266,11 @@ class Order_admin_group_download extends Diafan
         if (count($files) == 1) {
             header('Content-Description: File Transfer');
             header('Content-Type: application/octet-stream');
-            header('Content-Disposition: attachment; filename=' . basename($file));
+            header('Content-Disposition: attachment; filename=' . basename($files[0]));
             header('Content-Transfer-Encoding: binary');
-            header('Content-Length: ' . filesize($file));
-            readfile($file);
-            unlink($file);
+            header('Content-Length: ' . filesize($files[0]));
+            readfile($files[0]);
+            unlink($files[0]);
             exit();
         }
         else {

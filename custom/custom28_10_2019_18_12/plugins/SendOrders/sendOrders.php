@@ -11,67 +11,104 @@ class SendOrders
         $mail_text        = $mail_information["text"];
 
         if (count($ids) == 1) {
-            $files  = $this->getFile($ids[0]);
-            $params = $this->getOrderParamElement($ids[0]);
+
             require $_SERVER["DOCUMENT_ROOT"] . '/custom/custom28_10_2019_18_12/plugins/vendor/autoload.php';
-            $phpWord = new PhpOffice\PhpWord\PhpWord();
-            $doc     = new PhpOffice\PhpWord\TemplateProcessor('https://' . $_SERVER['HTTP_HOST'] . '/attachments/get/' . $files["id"] . '/' . $files["name"]);
 
-            $arValues = array(
-                'boss_name'    => (!empty($params[13]["value"]) ? $params[13]["value"] : ''),
-                'boss_phone'   => (!empty($params[25]["value"]) ? $params[25]["value"] : ''),
-                'work'         => (!empty($params[19]["value"] == 9) ? 'Разрешение на проведение работ' : 'Заявка на ввоз/вывоз'),
-                'type'         => (!empty($params[24]["value"]) ? $params[24]["value"] : ''), // уточнить надо
-                'place_desc'   => (!empty($params[6]["value"]) ? $params[6]["value"] : ''),
-                'floor'        => (!empty($params[4]["value"]) ? $params[4]["value"] : ''),
-                'auto_numbers' => (!empty($params[24]["value"]) ? $params[24]["value"] : ''), // позже
-                'auto_brand'   => (!empty($params[24]["value"]) ? $params[24]["value"] : ''), // позже
-                'dop'          => (!empty($params[14]["value"]) ? $params[14]["value"] : ''),
-                'text_import'  => (!empty($params[7]["value"]) ? $params[7]["value"] : ''),
-                'text_export'  => (!empty($params[11]["value"]) ? $params[11]["value"] : ''),
-                'dimensions'   => (!empty($params[24]["value"]) ? $params[24]["value"] : ''), // позже
-                'weight'       => (!empty($params[24]["value"]) ? $params[24]["value"] : ''), // позже
-                'power'        => (!empty($params[24]["value"]) ? $params[24]["value"] : ''), // позже
-            );
+            $params = $this->getOrderParamElement($ids[0]);
 
-            if (!empty($params[5]["value"]) && !empty($params[17]["value"])) {
-                $arValues["date"] = date("d.m.y", strtotime($params[5]["value"])) . ' - ' . date("d.m.y", strtotime($params[17]["value"]));
-            } else {
-                $arValues["date"] = '';
-            }
+            if ($params[19]["value"] == 9) $type_docs = 5;
+            else $type_docs = 6;
 
-            $doc->setValues($arValues);
+            $files = $this->getFile($ids[0], $type_docs);
 
-            $names = [];
-            if (!empty($params[28]["value"])) {
-                if (strpos($params[28]["value"], "<br />")) $names = explode("<br />", $params[28]["value"]);
-                else $names = explode("\n", $params[28]["value"]);
-            }
-            $passports = [];
-            if (!empty($params[31]["value"])) {
-                if (strpos($params[31]["value"], "<br />")) $passports = explode("<br />", $params[31]["value"]);
-                else $passports = explode("\n", $params[31]["value"]);
-            }
-            $values = [];
-            if (count($names) > 0) {
-                for ($i = 0; $i < count($names); $i++) {
-                    $values[] = ['num' => $i + 1, 'staff_fio' => $names[$i], 'staff_passport' => $passports[$i]];
+            $urls = array();
+            foreach ($files as $number_file => $file) {
+                $phpWord = new PhpOffice\PhpWord\PhpWord();
+                $doc     = new PhpOffice\PhpWord\TemplateProcessor('https://' . $_SERVER['HTTP_HOST'] . '/attachments/get/' . $file["id"] . '/' . $file["name"]);
+
+                $type = '';
+                if (!empty($params[2]["value"])) $type = $params[2]["value"];
+                elseif (!empty($params[21]["value"])) $type = $params[21]["value"];
+                $types = $this->getTypes($ids[0]);
+
+                // Дата создания
+                $date_create = $this->getDateCreate($ids[0]);
+                $date_create["created"] = date("d.m.Y", $date_create["created"]);
+
+                // Этаж
+                $floor = '';
+                if (!empty($params[26]["value"])) {
+                    $floor .= 'с '.$params[26]["value"].' этажа';
+                    if (!empty($params[29]["value"])) {
+                        $floor .= ' на '.$params[29]["value"].' этаж';
+                    }
                 }
+                else {
+                    if (!empty($params[4]["value"])) {
+                        $floor = $params[4]["value"].' этаж';
+                    }
+                }
+
+                $arValues = array(
+                    'created' => (!empty($date_create["created"]) ? $date_create["created"] : ''),
+                    'boss_name'    => (!empty($params[13]["value"]) ? $params[13]["value"] : ''),
+                    'boss_phone'   => (!empty($params[25]["value"]) ? $params[25]["value"] : ''),
+                    'work'         => (!empty($params[19]["value"] == 9) ? 'Разрешение на проведение работ' : 'Заявка на ввоз/вывоз'),
+                    'type'         => $types[$type]["name"],
+                    'place_desc'   => (!empty($params[6]["value"]) ? $params[6]["value"] : ''),
+                    'floor'        => $floor,
+                    'auto_numbers' => (!empty($params[24]["value"]) ? $params[24]["value"] : ''), // позже
+                    'auto_brand'   => (!empty($params[24]["value"]) ? $params[24]["value"] : ''), // позже
+                    'dop'          => (!empty($params[14]["value"]) ? $params[14]["value"] : ''),
+                    'text_import'  => (!empty($params[7]["value"]) ? $params[7]["value"] : ''),
+                    'text_export'  => (!empty($params[11]["value"]) ? $params[11]["value"] : ''),
+                    'dimensions'   => (!empty($params[24]["value"]) ? $params[24]["value"] : ''), // позже
+                    'weight'       => (!empty($params[24]["value"]) ? $params[24]["value"] : ''), // позже
+                    'power'        => (!empty($params[24]["value"]) ? $params[24]["value"] : ''), // позже
+                );
+
+                if (!empty($params[5]["value"]) && !empty($params[17]["value"])) {
+                    $arValues["date"] = date("d.m.y", strtotime($params[5]["value"])) . ' - ' . date("d.m.y", strtotime($params[17]["value"]));
+                } else {
+                    $arValues["date"] = '';
+                }
+
+                $doc->setValues($arValues);
+
+                $names = [];
+                if (!empty($params[28]["value"])) {
+                    $names = explode("<br />", $params[28]["value"]);
+                }
+                $passports = [];
+                if (!empty($params[31]["value"])) {
+                    $passports = explode("<br />", $params[31]["value"]);
+                }
+                $values = [];
+                if (count($names) > 0) {
+                    for ($i = 0; $i < count($names); $i++) {
+                        $values[] = ['num' => $i + 1, 'staff_fio' => $names[$i], 'staff_passport' => $passports[$i]];
+                    }
+                }
+                try {
+                    $doc->cloneRowAndSetValues('num', $values);
+                } catch (Exception $e) {
+                    ;
+                }
+
+                $dir = $_SERVER["DOCUMENT_ROOT"] . '/tmp/orders';
+                if (!file_exists($dir))
+                    mkdir($dir, 0777, true);
+
+                $word_name = $dir . '/doc_tmp'.$ids[0].'_'.$number_file.'.docx';
+                $doc->saveAs($word_name);
+
+                $pdf_name = 'doc_pdf'.$ids[0].'_'.$number_file.'.pdf';
+                $converter = new NcJoes\OfficeConverter\OfficeConverter($word_name);
+                $converter->convertTo($pdf_name);
+
+                $urls[] = $dir . '/'.$pdf_name;
+
             }
-            try {
-                $doc->cloneRowAndSetValues('num', $values);
-            } catch (Exception $e) {
-                ;
-            }
-
-            $dir = $_SERVER["DOCUMENT_ROOT"] . '/tmp/orders';
-            if (!file_exists($dir))
-                mkdir($dir, 0777, true);
-
-            $doc->saveAs($dir . '/doc_tmp.docx');
-
-            $converter = new NcJoes\OfficeConverter\OfficeConverter($dir . '/doc_tmp.docx');
-            $converter->convertTo('doc_tmp.pdf');
 
             $from_mail = EMAIL_CONFIG;
             $mail      = new PHPMailer\PHPMailer\PHPMailer();
@@ -88,13 +125,19 @@ class SendOrders
                 }
             }
 
-            $mail->AddAttachment($dir . '/doc_tmp.pdf', 'order.pdf', $encoding = 'base64', $type = 'application/pdf');
+            foreach ($urls as $i => $url) {
+                $mail->AddAttachment($url, 'attachment'.$i.'.pdf', $encoding = 'base64', $type = 'application/pdf');
+            }
+
             $mail->isHTML(true);
             $mail->CharSet = "UTF-8";
             $mail->setLanguage('ru');
             $mail->Subject = $mail_title;
             $mail->Body    = $mail_text;
-            $mail->send();
+            if ($mail->send()) echo 'Письмо успешно отправлено!';
+            else echo 'Письмо не отправлено!';
+            echo '<div><a href="/admin/order/"><< Вернуться назад</a></div>';
+            exit();
 
         } else {
             //город тц трекер
@@ -111,7 +154,7 @@ class SendOrders
                 } else {
                     if ($good_id == $order["id"]) continue;
                     else {
-                        echo 'Товары разные';
+                        echo 'ТЦ разные';
                         exit();
                     }
                 }
@@ -224,14 +267,14 @@ class SendOrders
     }
 
     // Получение файла
-    private function getFile($id)
+    private function getFile($id, $type = 5)
     {
-        return DB::query_fetch_array("
+        return DB::query_fetch_all("
                 SELECT file.id, file.name FROM {shop_order} AS orders
                 RIGHT JOIN {shop_order_goods} AS goods ON goods.order_id=orders.id
                 RIGHT JOIN {attachments} AS file ON goods.good_id=file.element_id
                 WHERE orders.id='%d' AND file.param_id='%d'
-            ", $id, 5);
+            ", $id, $type);
     }
 
     // Получение параметров списка товаров
@@ -273,6 +316,19 @@ class SendOrders
                 AND orders.trash='0' AND goods.trash='0'
                  ",
             "order_id");
+    }
+
+    private function getTypes($ids)
+    {
+        return DB::query_fetch_key("
+            SELECT id, [name] FROM {shop_order_param_select} WHERE param_id='2' OR param_id='21' AND trash='0'
+        ", "id");
+    }
+
+    private function getDateCreate($ids) {
+        return DB::query_fetch_array("
+            SELECT created FROM {shop_order} WHERE id='%d'
+        ", $ids);
     }
 
     private function getShopEmail($id)

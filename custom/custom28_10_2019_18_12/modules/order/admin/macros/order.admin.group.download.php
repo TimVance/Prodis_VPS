@@ -97,14 +97,9 @@ class Order_admin_group_download extends Diafan
                     'type'         => $types[$type]["name"],
                     'place_desc'   => (!empty($params[6]["value"]) ? $params[6]["value"] : ''),
                     'floor'        => $floor,
-                    'auto_numbers' => (!empty($params[24]["value"]) ? $params[24]["value"] : ''), // позже
-                    'auto_brand'   => (!empty($params[24]["value"]) ? $params[24]["value"] : ''), // позже
                     'dop'          => (!empty($params[14]["value"]) ? $params[14]["value"] : ''),
                     'text_import'  => (!empty($params[7]["value"]) ? $params[7]["value"] : ''),
                     'text_export'  => (!empty($params[11]["value"]) ? $params[11]["value"] : ''),
-                    'dimensions'   => (!empty($params[24]["value"]) ? $params[24]["value"] : ''), // позже
-                    'weight'       => (!empty($params[24]["value"]) ? $params[24]["value"] : ''), // позже
-                    'power'        => (!empty($params[24]["value"]) ? $params[24]["value"] : ''), // позже
                 );
 
                 if (!empty($params[5]["value"]) && !empty($params[17]["value"])) {

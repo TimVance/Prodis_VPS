@@ -43,8 +43,10 @@ if(! defined("DIAFAN"))
                     AND rel.element_id='%d'
                     ORDER BY r.id
                     ", $cat, $this->diafan->_users->id);
+
     if (!empty($address["rewrite"])) $this->diafan->redirect($address["rewrite"]);
     else echo 'Доступных для Вас торговых центров не найдено!';
+
 
     ?>
 

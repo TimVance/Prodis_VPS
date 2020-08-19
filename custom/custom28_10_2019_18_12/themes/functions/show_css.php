@@ -62,7 +62,7 @@ if(is_array($compress_files))
 }
 else
 {
-	echo '<link href="'.BASE_PATH.$compress_files.'?v='.rand(1, 9999).'" rel="stylesheet" type="text/css">';
+	echo '<link href="'.BASE_PATH.$compress_files.'?v=1" rel="stylesheet" type="text/css">';
 }
 
 if ($this->diafan->_users->useradmin)

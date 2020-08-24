@@ -27,7 +27,28 @@ echo '<div class="js_shop_id js_shop shop shop_id shop-item-container box-block"
 
 echo '<h2>Подача заявки</h2>';
 
-$cityes = DB::query_fetch_all("
+$roles = [2,3,4,5]; // Группы администраторов
+if (in_array($this->diafan->_users->role_id, $roles)) $user_admin = true;
+else $user_admin = false;
+
+if ($user_admin) {
+    $cityes = DB::query_fetch_all("
+            SELECT shop.[name] AS shop_name, category.id AS id, category.[name] AS name FROM {shop} AS shop
+            RIGHT JOIN {shop_category} AS category ON category.id=shop.cat_id
+            WHERE shop.trash='0' AND category.trash='0' GROUP BY id
+        ", $this->diafan->_users->role_id);
+
+    $rows = DB::query_fetch_all("
+            SELECT s.id, s.[name], r.rewrite, c.[name] AS cat_name, c.id AS cat_id
+            FROM {shop} AS s LEFT JOIN {rewrite} as r ON s.id=r.element_id 
+            LEFT JOIN {shop_category} AS c ON c.id=s.cat_id 
+            WHERE r.element_type='element' AND r.module_name='shop'
+            AND s.cat_id='%d' AND r.trash='0' AND c.trash='0' AND s.trash='0'
+            ORDER BY s.id",
+        $result["cat_id"]);
+}
+else {
+    $cityes = DB::query_fetch_all("
             SELECT shop.[name] AS shop_name, category.id AS id, category.[name] AS name FROM {shop} AS shop
             RIGHT JOIN {shop_category} AS category ON category.id=shop.cat_id
             RIGHT JOIN {users_rel} AS rel ON rel.rel_element_id=shop.id
@@ -35,7 +56,7 @@ $cityes = DB::query_fetch_all("
             GROUP BY id
         ", $this->diafan->_users->id);
 
-$rows = DB::query_fetch_all("
+    $rows = DB::query_fetch_all("
             SELECT s.id, s.[name], r.rewrite, c.[name] AS cat_name, c.id AS cat_id
             FROM {shop} AS s LEFT JOIN {rewrite} as r ON s.id=r.element_id 
             LEFT JOIN {shop_category} AS c ON c.id=s.cat_id 
@@ -43,7 +64,8 @@ $rows = DB::query_fetch_all("
             WHERE r.element_type='element' AND r.module_name='shop'
             AND s.cat_id='%d' AND r.trash='0' AND c.trash='0' AND s.trash='0'
             AND rel.element_id='%d' AND rel.trash='0' ORDER BY s.id",
-    $result["cat_id"], $this->diafan->_users->id);
+        $result["cat_id"], $this->diafan->_users->id);
+}
 
 if (count($cityes) == 0) {
     echo 'Доступных для Вас торговых центров не найдено!';

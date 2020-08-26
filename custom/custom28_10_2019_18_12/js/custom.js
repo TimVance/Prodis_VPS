@@ -35,8 +35,8 @@ $(function() {
                 form.find('.vyvoz').slideUp();
                 form.find('.novoform').slideUp();
                 form.find('.form-group4').slideUp();
-                form.find('.form-group30').slideUp();
-                form.find('.form-group33').slideUp();
+                form.find('.form-group30').slideDown();
+                form.find('.form-group33').slideDown();
                 form.find('.form-group12').slideDown();
                 break;
             case "5": // Замена
@@ -69,8 +69,8 @@ $(function() {
                 form.find('.vyvoz').slideUp();
                 form.find('.novoform').slideDown();
                 form.find('.form-group4').slideDown();
-                form.find('.form-group30').slideUp();
-                form.find('.form-group33').slideUp();
+                form.find('.form-group33').slideDown();
+                form.find('.form-group12').slideDown();
                 form.find('.form-group12').slideDown();
                 break;
             case "":
@@ -81,8 +81,8 @@ $(function() {
                 form.find('.vyvoz').slideUp();
                 form.find('.novoform').slideUp();
                 form.find('.form-group4').slideDown();
-                form.find('.form-group30').slideUp();
-                form.find('.form-group33').slideUp();
+                form.find('.form-group30').slideDown();
+                form.find('.form-group33').slideDown();
                 form.find('.form-group12').slideDown();
                 break;
         }

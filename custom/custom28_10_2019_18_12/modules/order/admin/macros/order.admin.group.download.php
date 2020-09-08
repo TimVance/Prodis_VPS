@@ -19,6 +19,9 @@ if (!defined('DIAFAN')) {
     include $path . '/includes/404.php';
 }
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
 /**
  * Order_admin_group_status
  */
@@ -61,6 +64,12 @@ class Order_admin_group_download extends Diafan
 
             $files = $this->getFile($ids[0], $type_docs);
             $urls = array();
+
+            if (empty($files)) {
+                echo 'Документов не найдено!';
+                exit();
+            }
+
             foreach ($files as $number_file => $file) {
                 require $_SERVER["DOCUMENT_ROOT"] . '/custom/custom28_10_2019_18_12/plugins/vendor/autoload.php';
                 $phpWord = new PhpOffice\PhpWord\PhpWord();
@@ -110,6 +119,7 @@ class Order_admin_group_download extends Diafan
 
                 $doc->setValues($arValues);
 
+                // Имена и паспорта
                 $names = [];
                 if (!empty($params[28]["value"])) {
                     $names = explode("<br />", $params[28]["value"]);
@@ -129,6 +139,65 @@ class Order_admin_group_download extends Diafan
                 } catch (Exception $e) {
                     ;
                 }
+                // Имена и паспорта
+
+                // Марки авто и номера
+
+                $file_auto = [];
+                $file_auto = $this->getFileOrder($ids[0], 12);
+                $auto_info = [];
+
+                // Считать файл с информацией об авто
+                if (!empty($file_auto[0]["name"])) {
+
+                    $inputFileName = 'https://' . $_SERVER['HTTP_HOST'] . '/attachments/get/' . $file_auto[0]["id"] . '/' . $file_auto[0]["name"];
+                    $file = file_get_contents($inputFileName);
+                    $putFile = $_SERVER["DOCUMENT_ROOT"] . '/tmp/orders/'.$file_auto[0]["id"].'_'.$file_auto[0]["name"];
+                    file_put_contents($putFile, $file);
+                    $inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($putFile);
+                    $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+                    $spreadsheet = $reader->load($putFile);
+                    $schdeules = $spreadsheet->getActiveSheet()->toArray();
+                    $i = 0;
+                    foreach( $schdeules as $single_schedule )
+                    {
+                        if (!empty($i)) {
+                            $auto_info[] = $single_schedule;
+                        }
+                        $i++;
+                    }
+
+                }
+
+                $marki = [];
+                if (!empty($params[30]["value"])) {
+                    $marki = explode("<br />", $params[30]["value"]);
+                }
+                $nomera = [];
+                if (!empty($params[33]["value"])) {
+                    $nomera = explode("<br />", $params[33]["value"]);
+                }
+                $values_auto = [];
+                $number_line = 1;
+                if (count($marki) > 0) {
+                    for ($i = 0; $i < count($marki); $i++) {
+                        $values_auto[] = ['n' => $number_line, 'auto_brand' => $marki[$i], 'auto_numbers' => $nomera[$i]];
+                        $number_line++;
+                    }
+                }
+                if (!empty($auto_info)) {
+                    for ($i = 0; $i < count($auto_info); $i++) {
+                        $values_auto[] = ['n' => $number_line, 'auto_brand' => $auto_info[$i][0], 'auto_numbers' => $auto_info[$i][1]];
+                        $number_line++;
+                    }
+                }
+                try {
+                    $doc->cloneRowAndSetValues('n', $values_auto);
+                } catch (Exception $e) {
+                    ;
+                }
+                // Марки авто и номера
+
 
                 $dir = $_SERVER["DOCUMENT_ROOT"] . '/tmp/orders';
                 if (!file_exists($dir))
@@ -239,6 +308,15 @@ class Order_admin_group_download extends Diafan
             ", $id, $type);
     }
 
+    // Получение файла заказа
+    private function getFileOrder($id, $type)
+    {
+        return DB::query_fetch_all("
+                SELECT id, name FROM {attachments}
+                WHERE element_id='%d' AND param_id='%d'
+            ", $id, $type);
+    }
+
     // Получение параметров списка товаров
     private function getOrdersParamElement($ids)
     {
@@ -286,7 +364,6 @@ class Order_admin_group_download extends Diafan
                     readfile($zip_name);
                     unlink($zip_name);
                 }
-                echo $zip_name;
             }
             exit();
         }

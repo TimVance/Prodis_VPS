@@ -55,6 +55,9 @@ class Order_admin_group_download extends Diafan
         $ids = $this->diafan->filter($_POST["ids"], "integer");
 
         if (count($ids) == 1) {
+
+            require $_SERVER["DOCUMENT_ROOT"] . '/custom/custom28_10_2019_18_12/plugins/vendor/autoload.php';
+
             $params = $this->getOrderParamElement($ids[0]);
 
             // Вид документа
@@ -119,7 +122,35 @@ class Order_admin_group_download extends Diafan
 
                 $doc->setValues($arValues);
 
+
                 // Имена и паспорта
+
+                $file_fio = [];
+                $file_fio = $this->getFileOrder($ids[0], 15);
+                $fio_info = [];
+
+                // Считать файл с информацией об авто
+                if (!empty($file_fio[0]["name"])) {
+
+                    $inputFileName = 'https://' . $_SERVER['HTTP_HOST'] . '/attachments/get/' . $file_fio[0]["id"] . '/' . $file_fio[0]["name"];
+                    $file = file_get_contents($inputFileName);
+                    $putFile = $_SERVER["DOCUMENT_ROOT"] . '/tmp/orders/'.$file_auto[0]["id"].'_'.$file_fio[0]["name"];
+                    file_put_contents($putFile, $file);
+                    $inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($putFile);
+                    $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+                    $spreadsheet = $reader->load($putFile);
+                    $schdeules = $spreadsheet->getActiveSheet()->toArray();
+                    $i = 0;
+                    foreach( $schdeules as $single_schedule )
+                    {
+                        if (!empty($i)) {
+                            $fio_info[] = $single_schedule;
+                        }
+                        $i++;
+                    }
+
+                }
+
                 $names = [];
                 if (!empty($params[28]["value"])) {
                     $names = explode("<br />", $params[28]["value"]);
@@ -129,11 +160,23 @@ class Order_admin_group_download extends Diafan
                     $passports = explode("<br />", $params[31]["value"]);
                 }
                 $values = [];
+                $number_line = 1;
                 if (count($names) > 0) {
                     for ($i = 0; $i < count($names); $i++) {
-                        $values[] = ['num' => $i + 1, 'staff_fio' => $names[$i], 'staff_passport' => $passports[$i]];
+                        if (strlen($names[$i]) < 3) continue;
+                        $values[] = ['num' => $number_line, 'staff_fio' => $names[$i], 'staff_passport' => $passports[$i]];
+                        $number_line++;
                     }
                 }
+
+                if (!empty($fio_info)) {
+                    for ($i = 0; $i < count($fio_info); $i++) {
+                        if (strlen($fio_info[$i][0]) < 3) continue;
+                        $values[] = ['num' => $number_line, 'staff_fio' => $fio_info[$i][0], 'staff_passport' => $fio_info[$i][1]];
+                        $number_line++;
+                    }
+                }
+
                 try {
                     $doc->cloneRowAndSetValues('num', $values);
                 } catch (Exception $e) {
@@ -181,12 +224,14 @@ class Order_admin_group_download extends Diafan
                 $number_line = 1;
                 if (count($marki) > 0) {
                     for ($i = 0; $i < count($marki); $i++) {
+                        if (empty($marki[$i])) continue;
                         $values_auto[] = ['n' => $number_line, 'auto_brand' => $marki[$i], 'auto_numbers' => $nomera[$i]];
                         $number_line++;
                     }
                 }
                 if (!empty($auto_info)) {
                     for ($i = 0; $i < count($auto_info); $i++) {
+                        if (empty($auto_info[$i][0])) continue;
                         $values_auto[] = ['n' => $number_line, 'auto_brand' => $auto_info[$i][0], 'auto_numbers' => $auto_info[$i][1]];
                         $number_line++;
                     }

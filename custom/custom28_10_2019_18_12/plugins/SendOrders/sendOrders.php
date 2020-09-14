@@ -16,12 +16,18 @@ class SendOrders
 
             $params = $this->getOrderParamElement($ids[0]);
 
+            // Вид документа
             if ($params[19]["value"] == 9) $type_docs = 5;
             else $type_docs = 6;
 
             $files = $this->getFile($ids[0], $type_docs);
-
             $urls = array();
+
+            if (empty($files)) {
+                echo 'Документов не найдено!';
+                exit();
+            }
+
             foreach ($files as $number_file => $file) {
                 $phpWord = new PhpOffice\PhpWord\PhpWord();
                 $doc     = new PhpOffice\PhpWord\TemplateProcessor('https://' . $_SERVER['HTTP_HOST'] . '/attachments/get/' . $file["id"] . '/' . $file["name"]);
@@ -57,14 +63,9 @@ class SendOrders
                     'type'         => $types[$type]["name"],
                     'place_desc'   => (!empty($params[6]["value"]) ? $params[6]["value"] : ''),
                     'floor'        => $floor,
-                    'auto_numbers' => (!empty($params[24]["value"]) ? $params[24]["value"] : ''), // позже
-                    'auto_brand'   => (!empty($params[24]["value"]) ? $params[24]["value"] : ''), // позже
                     'dop'          => (!empty($params[14]["value"]) ? $params[14]["value"] : ''),
                     'text_import'  => (!empty($params[7]["value"]) ? $params[7]["value"] : ''),
                     'text_export'  => (!empty($params[11]["value"]) ? $params[11]["value"] : ''),
-                    'dimensions'   => (!empty($params[24]["value"]) ? $params[24]["value"] : ''), // позже
-                    'weight'       => (!empty($params[24]["value"]) ? $params[24]["value"] : ''), // позже
-                    'power'        => (!empty($params[24]["value"]) ? $params[24]["value"] : ''), // позже
                 );
 
                 if (!empty($params[5]["value"]) && !empty($params[17]["value"])) {
@@ -75,6 +76,34 @@ class SendOrders
 
                 $doc->setValues($arValues);
 
+                // Имена и паспорта
+
+                $file_fio = [];
+                $file_fio = $this->getFileOrder($ids[0], 15);
+                $fio_info = [];
+
+                // Считать файл с информацией об авто
+                if (!empty($file_fio[0]["name"])) {
+
+                    $inputFileName = 'https://' . $_SERVER['HTTP_HOST'] . '/attachments/get/' . $file_fio[0]["id"] . '/' . $file_fio[0]["name"];
+                    $file = file_get_contents($inputFileName);
+                    $putFile = $_SERVER["DOCUMENT_ROOT"] . '/tmp/orders/'.$file_auto[0]["id"].'_'.$file_fio[0]["name"];
+                    file_put_contents($putFile, $file);
+                    $inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($putFile);
+                    $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+                    $spreadsheet = $reader->load($putFile);
+                    $schdeules = $spreadsheet->getActiveSheet()->toArray();
+                    $i = 0;
+                    foreach( $schdeules as $single_schedule )
+                    {
+                        if (!empty($i)) {
+                            $fio_info[] = $single_schedule;
+                        }
+                        $i++;
+                    }
+
+                }
+
                 $names = [];
                 if (!empty($params[28]["value"])) {
                     $names = explode("<br />", $params[28]["value"]);
@@ -84,16 +113,90 @@ class SendOrders
                     $passports = explode("<br />", $params[31]["value"]);
                 }
                 $values = [];
+                $number_line = 1;
                 if (count($names) > 0) {
                     for ($i = 0; $i < count($names); $i++) {
-                        $values[] = ['num' => $i + 1, 'staff_fio' => $names[$i], 'staff_passport' => $passports[$i]];
+                        if (strlen($names[$i]) < 3) continue;
+                        $values[] = ['num' => $number_line, 'staff_fio' => $names[$i], 'staff_passport' => $passports[$i]];
+                        $number_line++;
                     }
                 }
+
+                if (!empty($fio_info)) {
+                    for ($i = 0; $i < count($fio_info); $i++) {
+                        if (strlen($fio_info[$i][0]) < 3) continue;
+                        $values[] = ['num' => $number_line, 'staff_fio' => $fio_info[$i][0], 'staff_passport' => $fio_info[$i][1]];
+                        $number_line++;
+                    }
+                }
+
                 try {
                     $doc->cloneRowAndSetValues('num', $values);
                 } catch (Exception $e) {
                     ;
                 }
+                // Имена и паспорта
+
+
+                // Марки авто и номера
+
+                $file_auto = [];
+                $file_auto = $this->getFileOrder($ids[0], 12);
+                $auto_info = [];
+
+                // Считать файл с информацией об авто
+                if (!empty($file_auto[0]["name"])) {
+
+                    $inputFileName = 'https://' . $_SERVER['HTTP_HOST'] . '/attachments/get/' . $file_auto[0]["id"] . '/' . $file_auto[0]["name"];
+                    $file = file_get_contents($inputFileName);
+                    $putFile = $_SERVER["DOCUMENT_ROOT"] . '/tmp/orders/'.$file_auto[0]["id"].'_'.$file_auto[0]["name"];
+                    file_put_contents($putFile, $file);
+                    $inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($putFile);
+                    $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+                    $spreadsheet = $reader->load($putFile);
+                    $schdeules = $spreadsheet->getActiveSheet()->toArray();
+                    $i = 0;
+                    foreach( $schdeules as $single_schedule )
+                    {
+                        if (!empty($i)) {
+                            $auto_info[] = $single_schedule;
+                        }
+                        $i++;
+                    }
+
+                }
+
+                $marki = [];
+                if (!empty($params[30]["value"])) {
+                    $marki = explode("<br />", $params[30]["value"]);
+                }
+                $nomera = [];
+                if (!empty($params[33]["value"])) {
+                    $nomera = explode("<br />", $params[33]["value"]);
+                }
+                $values_auto = [];
+                $number_line = 1;
+                if (count($marki) > 0) {
+                    for ($i = 0; $i < count($marki); $i++) {
+                        if (empty($marki[$i])) continue;
+                        $values_auto[] = ['n' => $number_line, 'auto_brand' => $marki[$i], 'auto_numbers' => $nomera[$i]];
+                        $number_line++;
+                    }
+                }
+                if (!empty($auto_info)) {
+                    for ($i = 0; $i < count($auto_info); $i++) {
+                        if (empty($auto_info[$i][0])) continue;
+                        $values_auto[] = ['n' => $number_line, 'auto_brand' => $auto_info[$i][0], 'auto_numbers' => $auto_info[$i][1]];
+                        $number_line++;
+                    }
+                }
+                try {
+                    $doc->cloneRowAndSetValues('n', $values_auto);
+                } catch (Exception $e) {
+                    ;
+                }
+                // Марки авто и номера
+
 
                 $dir = $_SERVER["DOCUMENT_ROOT"] . '/tmp/orders';
                 if (!file_exists($dir))
@@ -274,6 +377,15 @@ class SendOrders
                 RIGHT JOIN {shop_order_goods} AS goods ON goods.order_id=orders.id
                 RIGHT JOIN {attachments} AS file ON goods.good_id=file.element_id
                 WHERE orders.id='%d' AND file.param_id='%d'
+            ", $id, $type);
+    }
+
+    // Получение файла заказа
+    private function getFileOrder($id, $type)
+    {
+        return DB::query_fetch_all("
+                SELECT id, name FROM {attachments}
+                WHERE element_id='%d' AND param_id='%d'
             ", $id, $type);
     }
 
